@@ -8,7 +8,7 @@
 
 namespace kb{
 
-	class Key : public cv::Mat
+	class Key
 	{
 	private:
 		int sclae = -1;
@@ -17,18 +17,21 @@ namespace kb{
 		std::vector<cv::Point> contour;
 
 	public:
+		cv::Mat roi;
 		bool detectPress();
 		cv::Rect getRect();
+		cv::Mat getMat();
+
 		Key();
-		Key(cv::Rect roi);
-		Key(cv::Mat src, cv::Rect r);
-		Key(cv::Mat src, cv::Rect r, std::vector<cv::Point> contour);
-		Key(cv::Mat image, std::vector<cv::Point> contour);
+		Key(cv::Rect& roi);
+		Key(cv::Mat& src, cv::Rect& r);
+		Key(cv::Mat& image, std::vector<cv::Point>& contour);
+		Key(cv::Mat& src, cv::Rect& r, std::vector<cv::Point>& contour);
 		~Key();
 	};
 
-	void mapKeys(cv::Mat image, std::vector<std::vector<cv::Point>> contours, std::vector<kb::Key> keys);
-
+	void mapKeys(cv::Mat& image, std::vector<std::vector<cv::Point>>& contours, std::vector<kb::Key>& keys);
+	bool compareKeys(kb::Key key1, kb::Key key2);
 }
 
 
