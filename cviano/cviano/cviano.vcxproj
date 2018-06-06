@@ -22,11 +22,12 @@
     <ClCompile Include="custom.cpp" />
     <ClCompile Include="Key.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="S_test.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="custom.h" />
     <ClInclude Include="Key.h" />
-    <ClInclude Include="Laplacian.h" />
+    <ClInclude Include="LaplacianZC.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
@@ -78,8 +79,7 @@
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-    <Import Project="..\..\..\..\OneDrive\All_about_programming\computer_vision\opencv.props" />
-    <Import Project="..\..\..\..\..\Users\qkrtk\OneDrive\All_about_programming\computer_vision\opencv.props" />
+    <Import Project="..\..\opencv.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">

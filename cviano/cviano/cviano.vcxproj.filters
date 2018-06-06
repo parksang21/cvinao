@@ -24,6 +24,9 @@
     <ClCompile Include="main.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="S_test.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="custom.h">
@@ -32,7 +35,7 @@
     <ClInclude Include="Key.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Laplacian.h">
+    <ClInclude Include="LaplacianZC.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
