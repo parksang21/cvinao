@@ -8,7 +8,7 @@ using namespace std;
 using namespace cv;
 
 
-int main() {
+void sanguk() {
 	Mat image;
 	String test1 = "../../sample_image/test1.jpg";
 	String test2 = "../../sample_image/test2.jpg";
@@ -69,5 +69,4 @@ int main() {
 	
 	waitKey();
 
-	return 0;
 }
