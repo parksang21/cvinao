@@ -65,7 +65,7 @@ void heesoo(Mat& sorce, Mat& destnation, Rect& rect) {
 
 	Rect roiRect(Point2i(left, top), Point2i(left + width, top + height));
 
-	cout << "rectRect : " << roiRect << endl;
+	
 
 	Mat roi = img_binary(roiRect);
 
@@ -108,18 +108,12 @@ void heesoo(Mat& sorce, Mat& destnation, Rect& rect) {
 			}
 		}
 	}
-	cout << "roiLeftTop Point : " << roiLT << endl;
-	cout << "roiLeftBot Point : " << roiLB << endl;
-	cout << "roiRightTop Point : " << roiRT << endl;
-	cout << "roiRightBot Point : " << roiRB << endl;
+
 
 	cvtColor(roi, roi, CV_GRAY2BGR);
-	circle(roi, roiLT, 2, Scalar(0, 0, 255), 2);
-	circle(roi, roiLB, 2, Scalar(0, 0, 255), 2);
-	circle(roi, roiRT, 2, Scalar(0, 0, 255), 2);
-	circle(roi, roiRB, 2, Scalar(0, 0, 255), 2);
 
-	cout << "그 점 값 : " << roi.at<int>(roiLT) << endl;
+
+
 	
 	Mat realRoi = img_input(roiRect);
 	rect = roiRect;
@@ -129,17 +123,17 @@ void heesoo(Mat& sorce, Mat& destnation, Rect& rect) {
 		roiLT,roiRT,roiLB,roiRB
 	};
 
-	cout << "pts1 : " << pts1[0] << endl;
+
 	//목적영상좌표 좌상,우상,좌하,우하
 	Point2f pts2[4] = {
 		Point2f(0,0),Point2f(realRoi.cols,0),Point2f(0,realRoi.rows),Point2f(realRoi.cols,realRoi.rows)
 	};
-	cout << "pts2 : " << pts2[0] << endl;
+
 
 	Mat dst(realRoi.size(), CV_8UC1);
 	Mat perspect_map = getPerspectiveTransform(pts1, pts2);
 	warpPerspective(realRoi, dst, perspect_map, realRoi.size(), INTER_CUBIC);
-	cout << "[perspect_mat[] = " << endl << perspect_map << endl << endl;
+
 
 	vector<Point3f>pts3, pts4;
 	for (int i = 0; i < 4; i++) {
