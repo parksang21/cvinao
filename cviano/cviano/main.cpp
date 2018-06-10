@@ -16,7 +16,7 @@ int main() {
 	//sihyun();
 
 	heesoo(frame, image, rect);
-	setWhiteKeyVector(image, keys);
+	setWhiteKeyVector(image, keys,rect);
 
 	cv::rectangle(frame, keys[0].getRect(), cv::Scalar(0, 255, 0), 3);
 
