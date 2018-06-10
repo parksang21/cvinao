@@ -25,7 +25,21 @@ kb::Key::Key(cv::Mat& image, std::vector<cv::Point>& contour) {
 
 kb::Key::~Key() {}
 
-bool kb::Key::detectPress() {
+bool kb::Key::detectPress(cv::Mat diffVideo) {
+	unsigned int hitCount = 0; // how many pixels change
+	unsigned int criticalPoint = 0; //if hitCount is bigger than this value, we assume that key is pressed
+
+	unsigned int TopLeftX = this->getRect().x;
+	unsigned int TopLeftY = this->getRect().y;
+	unsigned int KeyWidth = TopLeftX + this->getRect().size().width;
+	unsigned int KeyHeight = TopLeftY + this->getRect().size().height;
+
+	for (unsigned int i = TopLeftX; i < KeyWidth; i++) {
+		for (unsigned int j = TopLeftY; j < KeyHeight; j++) {
+			if (*diffVideo.ptr<uchar>(j, i) == 255) hitCount++;
+			if (hitCount >= criticalPoint) return true;
+		}
+	}
 
 	return false;
 }

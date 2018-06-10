@@ -24,5 +24,6 @@ namespace cust
 }
 
 void sanguk();
+void sihyun();
 
 #endif

@@ -18,7 +18,7 @@ namespace kb{
 
 	public:
 		cv::Mat roi;
-		bool detectPress();
+		bool detectPress(cv::Mat diffVideo);
 		cv::Rect getRect();
 		cv::Mat getMat();
 
