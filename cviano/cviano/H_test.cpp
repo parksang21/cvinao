@@ -3,10 +3,10 @@
 using namespace cv;
 using namespace std;
 
-Rect keyE(Point(1145, 357), Size(69, 333));
-Rect keyD(Point(1076, 357), Size(69, 333));
-Rect keyC(Point(1007, 357), Size(69, 333));
-Rect keyG(Point(1283, 357), Size(69, 333));
+Rect keyE(Point(1145, 357), Size(69, 250));
+Rect keyD(Point(1076, 357), Size(69, 250));
+Rect keyC(Point(1007, 357), Size(69, 250));
+Rect keyG(Point(1283, 357), Size(69, 250));
 
 void removeHand(Mat bkgImg, Mat binaryImg, Mat& grayImage, Mat hand) {
 	for (int i = 0; i < binaryImg.rows; i++) {
@@ -21,7 +21,7 @@ int hitnoteE(Mat video1) {
 	int count = 0;
 
 	Point ktl = keyE.tl();
-	thresh = keyE.size().width *keyE.size().height / 11;
+	thresh = keyE.size().width *keyE.size().height / 45;
 
 	for (int i = ktl.x; i < ktl.x + keyE.size().width; i++) {
 		for (int j = ktl.y; j < ktl.y + keyE.size().height; j++) {
@@ -40,7 +40,7 @@ int hitnoteD(Mat video1) {
 	int count = 0;
 
 	Point ktl = keyD.tl();
-	thresh = keyD.size().width *keyD.size().height / 6;
+	thresh = keyD.size().width *keyD.size().height / 20;
 
 	for (int i = ktl.x; i < ktl.x + keyD.size().width; i++) {
 		for (int j = ktl.y; j < ktl.y + keyD.size().height; j++) {
@@ -61,7 +61,7 @@ int hitnoteG(Mat video1) {
 	int count = 0;
 
 	Point ktl = keyG.tl();
-	thresh = keyD.size().width *keyD.size().height / 11;
+	thresh = keyD.size().width *keyD.size().height / 17;
 
 	for (int i = ktl.x; i < ktl.x + keyD.size().width; i++) {
 		for (int j = ktl.y; j < ktl.y + keyD.size().height; j++) {
@@ -81,7 +81,7 @@ int hitnoteC(Mat video1) {
 	int count = 0;
 
 	Point ktl = keyC.tl();
-	thresh = keyC.size().width *keyC.size().height / 18;
+	thresh = keyC.size().width *keyC.size().height / 20;
 
 	for (int i = ktl.x + 5; i < ktl.x + keyC.size().width - 5; i++) {
 		for (int j = ktl.y + 5; j < ktl.y + keyC.size().height - 5; j++) {

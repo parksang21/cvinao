@@ -6,12 +6,12 @@
 int main() {
 
 
-	cv::Mat image;
-	std::vector<kb::Key> keys;
+	//cv::Mat image;
+	//std::vector<kb::Key> keys;
 	//sihyun();
 
-	heesoo(image);
-	setWhiteKeyVector(image, keys);
+	//heesoo(image);
+	//setWhiteKeyVector(image, keys);
 
 	return 0;
 }
