@@ -64,7 +64,7 @@ int kb::Key::getNote() {
 //			클래스 외 function
 // ==================================================================================
 
-void kb::mapKeys(cv::Mat& image, std::vector<std::vector<cv::Point>>& contours, std::vector<kb::Key>& keys) 
+void kb::mapKeys(cv::Mat& image, std::vector<std::vector<cv::Point>>& contours, std::vector<kb::Key>& keys, cv::Rect srect)
 {
 	for (std::vector<std::vector<cv::Point>>::iterator iter = contours.begin(); 
 		iter < contours.end(); 
@@ -159,7 +159,7 @@ void kb::drawKeys(cv::Mat& image, std::vector<kb::Key> keys)
 	}
 }
 
-void setWhiteKeyVector(cv::Mat& src, std::vector<kb::Key>& keys) {
+void setWhiteKeyVector(cv::Mat& src, std::vector<kb::Key>& keys, cv::Rect rect) {
 
 	cv::Mat image;
 
@@ -192,16 +192,15 @@ void setWhiteKeyVector(cv::Mat& src, std::vector<kb::Key>& keys) {
 	cv::Mat rois(image.size(), CV_8UC3);
 	cv::cvtColor(image, rois, CV_GRAY2BGR);
 
-	kb::mapKeys(rois, contours, keys);
+	kb::mapKeys(rois, contours, keys, rect);
 	kb::setMusicalNote(keys);
 
 	kb::drawKeys(rois, keys);
 	
-	/*
+	
 	cv::namedWindow("roi", cv::WINDOW_NORMAL);
 	cv::resizeWindow("roi", rois.size());
 	cv::imshow("roi", rois);
-
 	cv::waitKey();
-	*/
+	
 }
