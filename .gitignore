@@ -260,6 +260,7 @@ paket-files/
 __pycache__/
 *.pyc
 
-/sample_image/test3.MOV
-/sample_image/test2.mp4
-/sample_image/test1.mp4
+*.jpg
+*.MOV
+*.mov
+*.mp4
