@@ -3,7 +3,7 @@
 using namespace std;
 using namespace cv;
 
-void heesoo(Mat& destnation) {
+void heesoo(Mat& sorce, Mat& destnation, Rect& rect) {
 
 	int LowH = 0;
 	int HighH = 180;
@@ -16,12 +16,8 @@ void heesoo(Mat& destnation) {
 	Mat img_input, img_hsv, img_binary;
 
 
-	Mat frame;
-	VideoCapture vc("../../sample_image/test3.mov");
-	vc >> frame;
-
-	img_input = imread("whatthe");
-	img_input = frame;
+	
+	img_input = sorce;
 
 
 	//HSV로 변환
@@ -124,8 +120,9 @@ void heesoo(Mat& destnation) {
 	circle(roi, roiRB, 2, Scalar(0, 0, 255), 2);
 
 	cout << "그 점 값 : " << roi.at<int>(roiLT) << endl;
-
+	
 	Mat realRoi = img_input(roiRect);
+	rect = roiRect;
 
 	//원본영상좌표
 	Point2f pts1[4] = {
@@ -152,6 +149,6 @@ void heesoo(Mat& destnation) {
 
 	
 
-	destnation = dst.clone();
+	destnation = realRoi.clone();
 
 }

@@ -86,11 +86,11 @@ namespace kb{
 		~Key();
 	};
 
-	void mapKeys(cv::Mat& image, std::vector<std::vector<cv::Point>>& contours, std::vector<kb::Key>& keys);
+	void mapKeys(cv::Mat& image, std::vector<std::vector<cv::Point>>& contours, std::vector<kb::Key>& keys, cv::Rect source_rect);
 	bool compareKeys(kb::Key key1, kb::Key key2);
 	void setMusicalNote(std::vector<kb::Key>& keys);
 	void drawKeys(cv::Mat& image, std::vector<kb::Key> keys);
 }
 
 
-void setWhiteKeyVector(cv::Mat& dst, std::vector<kb::Key>& keys);
+void setWhiteKeyVector(cv::Mat& dst, std::vector<kb::Key>& keys, cv::Rect rect);

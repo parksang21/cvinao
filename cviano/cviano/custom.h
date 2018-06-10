@@ -24,5 +24,5 @@ namespace cust
 }
 
 void sihyun();
-void heesoo(cv::Mat& dst);
+void heesoo(cv::Mat& sorce, cv::Mat& dst, cv::Rect& rect);
 #endif

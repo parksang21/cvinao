@@ -6,12 +6,23 @@
 int main() {
 
 
-	//cv::Mat image;
-	//std::vector<kb::Key> keys;
+	cv::Mat image;
+	std::vector<kb::Key> keys;
+	cv::Rect rect;
+	cv::Mat frame;
+	cv::VideoCapture vc("../../sample_image/test3.mov");
+	vc >> frame;
+
 	//sihyun();
 
-	//heesoo(image);
-	//setWhiteKeyVector(image, keys);
+	heesoo(frame, image, rect);
+	setWhiteKeyVector(image, keys);
+
+	cv::rectangle(frame, keys[0].getRect(), cv::Scalar(0, 255, 0), 3);
+
+	cv::imshow("frame", frame);
+	cv::imshow("image", image);
+	cv::waitKey();
 
 	return 0;
 }
