@@ -3,7 +3,7 @@
 
 
 int main() {
-	//sanguk();
+	sanguk();
 	//sihyun();
 	return 0;
 }

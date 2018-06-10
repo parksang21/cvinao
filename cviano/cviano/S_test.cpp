@@ -48,25 +48,13 @@ void sanguk() {
 	vector<kb::Key> keys;
 
 	kb::mapKeys(rois, contours, keys);
+	kb::setMusicalNote(keys);
 
-	/*
-	int a = 0;
-	for (kb::Key k : keys) {
-		cout << k.getRect().tl() << "  " << k.getRect().area() << endl;
-		imshow(to_string(a), k.roi);
-		a++;
-	}*/
+	kb::drawKeys(rois, keys);
 
-
-	
 	namedWindow("roi", WINDOW_NORMAL);
 	resizeWindow("roi", rois.size());
 	imshow("roi", rois);
-
-	namedWindow("morp", WINDOW_NORMAL);
-	resizeWindow("morp", morph.size());
-	imshow("morp", morph);
 	
 	waitKey();
-
 }
