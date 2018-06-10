@@ -1,7 +1,5 @@
 #include "Key.h"
 
-using namespace std;
-
 kb::Key::Key() {};
 
 kb::Key::Key(cv::Rect& r) {
@@ -80,7 +78,7 @@ void kb::mapKeys(cv::Mat& image, std::vector<std::vector<cv::Point>>& contours, 
 	int image_size = image.size().area();
 	int criteria = image_size / keys.size();
 	// 작은 것들 삭제하기
-	for (vector<kb::Key>::iterator iter = keys.begin(); iter < keys.end(); iter++) 
+	for (std::vector<kb::Key>::iterator iter = keys.begin(); iter < keys.end(); iter++) 
 	{
 		cv::Rect r = iter->getRect();
 		if (r.area() < criteria ||
@@ -100,14 +98,14 @@ void kb::mapKeys(cv::Mat& image, std::vector<std::vector<cv::Point>>& contours, 
 	{
 		int sum = 0;
 
-		for (vector<kb::Key>::iterator iter = keys.begin(); iter < keys.end(); iter++)
+		for (std::vector<kb::Key>::iterator iter = keys.begin(); iter < keys.end(); iter++)
 		{
 			sum += iter->getRect().width + iter->getRect().height;
 		}
 
 		int average = sum / keys.size();
 
-		for (vector<kb::Key>::iterator iter = keys.begin(); iter < keys.end(); iter++)
+		for (std::vector<kb::Key>::iterator iter = keys.begin(); iter < keys.end(); iter++)
 		{
 			cv::Rect r = iter->getRect();
 			if (r.width + r.height < average)
@@ -149,7 +147,6 @@ void kb::setMusicalNote(std::vector<kb::Key>& keys)
 
 void kb::drawKeys(cv::Mat& image, std::vector<kb::Key> keys)
 {
-
 	for (int i = 0; i < keys.size(); i++)
 	{
 		cv::rectangle(image, keys[i].getRect(), cv::Scalar(255, 0, 0), 2);
@@ -160,4 +157,51 @@ void kb::drawKeys(cv::Mat& image, std::vector<kb::Key> keys)
 			1.2,
 			cv::Scalar(0, 0, 255));
 	}
+}
+
+void setWhiteKeyVector(cv::Mat& src, std::vector<kb::Key>& keys) {
+
+	cv::Mat image;
+
+	cv::cvtColor(src, image, CV_BGR2GRAY);
+
+	cv::Mat binary_adaptive, canny;
+	adaptiveThreshold(image, binary_adaptive, 255, cv::ADAPTIVE_THRESH_MEAN_C, cv::THRESH_BINARY, 21, 10);
+
+	binary_adaptive = 255 - binary_adaptive;
+
+	GaussianBlur(binary_adaptive, binary_adaptive, cv::Size(), 2, 2);
+	Canny(binary_adaptive, canny, 125, 350);
+
+	cv::Mat kernel = cv::getStructuringElement(cv::MORPH_ELLIPSE, cv::Size(17, 17));
+	cv::Mat morph;
+	morphologyEx(canny, morph, CV_MOP_CLOSE, kernel);
+
+	std::vector<std::vector<cv::Point>> contours;
+	std::vector<cv::Vec4i> hierarchy;
+
+	cv::rectangle(morph, cv::Rect(cv::Point(0, 0), cv::Size(morph.size())), cv::Scalar(255), 5);
+	cv::findContours(morph, contours, hierarchy, CV_RETR_LIST, CV_CHAIN_APPROX_SIMPLE, cv::Point(0, 0));
+	std::sort(contours.begin(), contours.end(), cust::compareContourAreas);
+
+	cv::Mat only_poly(canny.size(), CV_8UC3);
+	drawContours(only_poly, contours, -1, cv::Scalar(0, 0, 255), 5);
+
+
+	// rois 는 없애도 될 부분
+	cv::Mat rois(image.size(), CV_8UC3);
+	cv::cvtColor(image, rois, CV_GRAY2BGR);
+
+	kb::mapKeys(rois, contours, keys);
+	kb::setMusicalNote(keys);
+
+	kb::drawKeys(rois, keys);
+	
+	/*
+	cv::namedWindow("roi", cv::WINDOW_NORMAL);
+	cv::resizeWindow("roi", rois.size());
+	cv::imshow("roi", rois);
+
+	cv::waitKey();
+	*/
 }
