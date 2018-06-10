@@ -3,10 +3,10 @@
 using namespace cv;
 using namespace std;
 
-Rect keyE(Point(1147, 395), Size(92, 624));
-Rect keyD(Point(1055, 395), Size(92, 624));
-Rect keyC(Point(963, 395), Size(92, 624));
-Rect keyF(Point(1331, 395), Size(92, 624));
+Rect keyE(Point(1145, 357), Size(69, 250));
+Rect keyD(Point(1076, 357), Size(69, 250));
+Rect keyC(Point(1007, 357), Size(69, 250));
+Rect keyG(Point(1283, 357), Size(69, 250));
 
 void removeHand(Mat bkgImg, Mat binaryImg, Mat& grayImage, Mat hand) {
 	for (int i = 0; i < binaryImg.rows; i++) {
@@ -21,7 +21,7 @@ int hitnoteE(Mat video1) {
 	int count = 0;
 
 	Point ktl = keyE.tl();
-	thresh = keyE.size().width *keyE.size().height / 11;
+	thresh = keyE.size().width *keyE.size().height / 45;
 
 	for (int i = ktl.x; i < ktl.x + keyE.size().width; i++) {
 		for (int j = ktl.y; j < ktl.y + keyE.size().height; j++) {
@@ -40,7 +40,7 @@ int hitnoteD(Mat video1) {
 	int count = 0;
 
 	Point ktl = keyD.tl();
-	thresh = keyD.size().width *keyD.size().height / 6;
+	thresh = keyD.size().width *keyD.size().height / 20;
 
 	for (int i = ktl.x; i < ktl.x + keyD.size().width; i++) {
 		for (int j = ktl.y; j < ktl.y + keyD.size().height; j++) {
@@ -56,12 +56,12 @@ int hitnoteD(Mat video1) {
 }
 
 
-int hitnoteF(Mat video1) {
+int hitnoteG(Mat video1) {
 	int thresh = 0;
 	int count = 0;
 
-	Point ktl = keyF.tl();
-	thresh = keyD.size().width *keyD.size().height / 11;
+	Point ktl = keyG.tl();
+	thresh = keyD.size().width *keyD.size().height / 17;
 
 	for (int i = ktl.x; i < ktl.x + keyD.size().width; i++) {
 		for (int j = ktl.y; j < ktl.y + keyD.size().height; j++) {
@@ -81,7 +81,7 @@ int hitnoteC(Mat video1) {
 	int count = 0;
 
 	Point ktl = keyC.tl();
-	thresh = keyC.size().width *keyC.size().height / 18;
+	thresh = keyC.size().width *keyC.size().height / 20;
 
 	for (int i = ktl.x + 5; i < ktl.x + keyC.size().width - 5; i++) {
 		for (int j = ktl.y + 5; j < ktl.y + keyC.size().height - 5; j++) {
@@ -125,12 +125,15 @@ void sihyun()
 		threshold(diffImg, diffImg, nThreshold, 255, CV_THRESH_BINARY);
 		removeHand(bkgImg, diffImg, backBoard, ycrvb);
 		cvtColor(backBoard, backBoard, CV_GRAY2BGR);
-		rectangle(backBoard, Point(1143, 335), Point(1210, 700), Scalar(0, 0, 255), 3);
-//		rectangle(backBoard, Point(1055, 395), Point(1147, 1019), Scalar(255, 0, 0), 3);
+		rectangle(backBoard,keyC, Scalar(0, 0, 255), 3); 
+		rectangle(backBoard, keyD, Scalar(0, 0, 255), 3);
+		rectangle(backBoard, keyE, Scalar(0, 0, 255), 3);
+		rectangle(backBoard, keyG, Scalar(0, 0, 255), 3);
+
 
 		if (hitnoteD(backBoard) == 1) cout << "레" << endl;
 		else if (hitnoteE(backBoard) == 1) cout << "미" << endl;
-		else if (hitnoteF(backBoard) == 1) cout << "솔" << endl;
+		else if (hitnoteG(backBoard) == 1) cout << "솔" << endl;
 		else if (hitnoteC(backBoard) == 1) cout << "도" << endl;
 		else cout << "X" << endl;
 
