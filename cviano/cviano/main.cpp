@@ -6,7 +6,7 @@
 int main() {
 
 
-	cv::Mat image;
+	cv::Mat keyborad;
 	std::vector<kb::Key> keys;
 	cv::Rect rect;
 	cv::Mat frame;
@@ -15,8 +15,8 @@ int main() {
 
 	//sihyun();
 
-	heesoo(frame, image, rect);
-	setWhiteKeyVector(frame, image, keys, rect);
+	heesoo(frame, keyborad, rect);
+	setWhiteKeyVector(frame, keyborad, keys, rect);
 
 	cv::imshow("frame", frame);
 	cv::waitKey();

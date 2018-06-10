@@ -160,11 +160,11 @@ void kb::drawKeys(cv::Mat& image, std::vector<kb::Key> keys)
 	}
 }
 
-void setWhiteKeyVector(cv::Mat& source, cv::Mat& src, std::vector<kb::Key>& keys, cv::Rect rect) {
+void setWhiteKeyVector(cv::Mat& source, cv::Mat& roi, std::vector<kb::Key>& keys, cv::Rect rect) {
 
 	cv::Mat image;
 
-	cv::cvtColor(src, image, CV_BGR2GRAY);
+	cv::cvtColor(roi, image, CV_BGR2GRAY);
 
 	cv::Mat binary_adaptive, canny;
 	adaptiveThreshold(image, binary_adaptive, 255, cv::ADAPTIVE_THRESH_MEAN_C, cv::THRESH_BINARY, 21, 10);
@@ -189,20 +189,6 @@ void setWhiteKeyVector(cv::Mat& source, cv::Mat& src, std::vector<kb::Key>& keys
 	drawContours(only_poly, contours, -1, cv::Scalar(0, 0, 255), 5);
 
 
-	// rois 는 없애도 될 부분
-	cv::Mat rois(image.size(), CV_8UC3);
-	cv::cvtColor(image, rois, CV_GRAY2BGR);
-
-	kb::mapKeys(source, rois, contours, keys, rect);
+	kb::mapKeys(source, image, contours, keys, rect);
 	kb::setMusicalNote(keys);
-
-	/*
-	kb::drawKeys(source, keys);
-	
-	
-	cv::namedWindow("roi", cv::WINDOW_NORMAL);
-	cv::resizeWindow("roi", rois.size());
-	cv::imshow("roi", rois);
-	cv::waitKey();
-	*/
 }
