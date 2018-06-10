@@ -93,3 +93,4 @@ namespace kb{
 }
 
 
+void setWhiteKeyVector(cv::Mat& dst, std::vector<kb::Key>& keys);

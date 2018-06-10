@@ -7,7 +7,7 @@
 #include <iostream>
 #include <vector>
 #include <opencv2\opencv.hpp>
-
+#include <cmath>
 #define PrintIVector(c, vector) {cout << endl << c << endl; for(int i : vector) cout << i << endl;}
 
 namespace cust
@@ -23,7 +23,6 @@ namespace cust
 	double getAverageContourAreas(std::vector<std::vector<cv::Point>> conts, cv::Mat src);
 }
 
-void sanguk();
 void sihyun();
-
+void heesoo(cv::Mat& dst);
 #endif
