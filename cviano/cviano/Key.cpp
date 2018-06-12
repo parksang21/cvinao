@@ -178,6 +178,7 @@ void setWhiteKeyVector(cv::Mat& source, cv::Mat& roi, std::vector<kb::Key>& keys
 	cv::Mat morph;
 	morphologyEx(canny, morph, CV_MOP_CLOSE, kernel);
 
+
 	std::vector<std::vector<cv::Point>> contours;
 	std::vector<cv::Vec4i> hierarchy;
 
@@ -185,7 +186,7 @@ void setWhiteKeyVector(cv::Mat& source, cv::Mat& roi, std::vector<kb::Key>& keys
 	cv::findContours(morph, contours, hierarchy, CV_RETR_LIST, CV_CHAIN_APPROX_SIMPLE, cv::Point(0, 0));
 	std::sort(contours.begin(), contours.end(), cust::compareContourAreas);
 
-		kb::mapKeys(source, image, contours, keys, rect);
+	kb::mapKeys(source, image, contours, keys, rect);
 	kb::setMusicalNote(keys);
 
 	kb::drawKeys(source, keys);

@@ -24,6 +24,7 @@
     <ClCompile Include="Key.cpp" />
     <ClCompile Include="K_test.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="video_capture.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="custom.h" />
