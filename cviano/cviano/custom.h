@@ -23,7 +23,7 @@ namespace cust
 	double getAverageContourAreas(std::vector<std::vector<cv::Point>> conts, cv::Mat src);
 }
 
-void sihyun();
+//void sihyun(std::vector<kb::Key> , cv::VideoCapture);
 
 void detectKeyboard(cv::Mat& sorce, cv::Mat& destnation, cv::Rect& rect);
 void distortionRotation(cv::Mat& sorce, cv::Mat& dst, cv::Rect& rect);
