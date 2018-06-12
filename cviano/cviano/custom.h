@@ -8,6 +8,7 @@
 #include <vector>
 #include <opencv2\opencv.hpp>
 #include <cmath>
+
 #define PrintIVector(c, vector) {cout << endl << c << endl; for(int i : vector) cout << i << endl;}
 
 namespace cust
@@ -23,7 +24,7 @@ namespace cust
 	double getAverageContourAreas(std::vector<std::vector<cv::Point>> conts, cv::Mat src);
 }
 
-void sihyun(std::vector<kb::Key> );
+//void sihyun(std::vector<kb::Key> , cv::VideoCapture);
 void heesoo(cv::Mat& sorce, cv::Mat& dst, cv::Rect& rect);
 void detectKeyboard(cv::Mat& sorce, cv::Mat& destnation, cv::Rect& rect);
 #endif
