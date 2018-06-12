@@ -3,9 +3,9 @@
 #include "Key.h"
 
 
-int main2() {
+int main3() {
 
-	cv::VideoCapture stream1(1);
+	cv::VideoCapture stream1(3);
 
 	// 커밋 전에는 항상 메인 주석처리 하자!
 
@@ -18,8 +18,15 @@ int main2() {
 	stream1.read(frame);
 	stream1.read(frame);
 	stream1.read(frame);
+	stream1.read(frame);
+	stream1.read(frame);
+	stream1.read(frame);
+	stream1.read(frame);
+	stream1.read(frame);
+	stream1.read(frame);
 
-
+	std::cout << frame.rows << std::endl;
+	std::cout << frame.cols << std::endl;
 	//sihyun();
 
 
