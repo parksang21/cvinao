@@ -129,6 +129,7 @@ void sihyun()
 		rectangle(backBoard, keyD, Scalar(0, 0, 255), 3);
 		rectangle(backBoard, keyE, Scalar(0, 0, 255), 3);
 		rectangle(backBoard, keyG, Scalar(0, 0, 255), 3);
+		rectangle(backBoard, keyG, Scalar(0, 0, 255), 3);
 
 
 		if (hitnoteD(backBoard) == 1) cout << "ทน" << endl;
