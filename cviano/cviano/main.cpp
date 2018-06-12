@@ -19,13 +19,15 @@ int main() {
 
 	//sihyun();
 
-	heesoo(frame, keyborad, keyboard_rect);
+	
+	detectKeyboard(frame, keyborad, keyboard_rect);
+	
 	setWhiteKeyVector(frame, keyborad, keys, keyboard_rect);
 
 	cv::imshow("frame", frame);
 	cv::waitKey();
+	
 	*/
-
 
 	return 0;
 }

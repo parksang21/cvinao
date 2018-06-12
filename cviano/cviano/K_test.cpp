@@ -66,6 +66,7 @@ void detectKeyboard(Mat& sorce, Mat& destnation, Rect& rect) {
 
 	Rect roiRect(Point2i(left, top), Point2i(left + width, top + height));
 	Mat realRoi = img_input(roiRect);
+	rect = roiRect;
 	destnation = realRoi.clone();
 }
 
