@@ -185,10 +185,10 @@ void setWhiteKeyVector(cv::Mat& source, cv::Mat& roi, std::vector<kb::Key>& keys
 	cv::findContours(morph, contours, hierarchy, CV_RETR_LIST, CV_CHAIN_APPROX_SIMPLE, cv::Point(0, 0));
 	std::sort(contours.begin(), contours.end(), cust::compareContourAreas);
 
-	cv::Mat only_poly(canny.size(), CV_8UC3);
-	drawContours(only_poly, contours, -1, cv::Scalar(0, 0, 255), 5);
-
-
-	kb::mapKeys(source, image, contours, keys, rect);
+		kb::mapKeys(source, image, contours, keys, rect);
 	kb::setMusicalNote(keys);
+
+	kb::drawKeys(source, keys);
+	imshow("s", source);
+	cv::waitKey(0);
 }
