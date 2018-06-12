@@ -23,6 +23,6 @@ namespace cust
 	double getAverageContourAreas(std::vector<std::vector<cv::Point>> conts, cv::Mat src);
 }
 
-void sihyun();
+void sihyun(std::vector<kb::Key> );
 void heesoo(cv::Mat& sorce, cv::Mat& dst, cv::Rect& rect);
 #endif

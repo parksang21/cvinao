@@ -1,5 +1,5 @@
 #include "custom.h"
-
+#include "Key.h"
 using namespace cv;
 using namespace std;
 
@@ -97,31 +97,27 @@ int hitnoteC(Mat video1) {
 }
 
 
-void sihyun()
+void sihyun(std::vector<kb::Key> keys,	cv::VideoCapture vc)
 {	
-	
-	VideoCapture vc("../../sample_image/test3.MOV");
-	if (!vc.isOpened()) cout << "비디오 파일이 없습니다." << endl;
 
-	Mat bkgImg, frame, grayImg2, ycrvb, hand;
-	vc >> bkgImg;
+	Mat bkgImg, frame, ycrvb, hand, grayImg, diffImg;;
 
-	Mat grayImg, diffImg;
+	vc >> bkgImg; //get first frame
+
 	cvtColor(bkgImg, grayImg, CV_BGR2GRAY);
 	cvtColor(bkgImg, bkgImg, CV_BGR2GRAY);
 
 	int nThreshold = 50;
-	int frameN = 0;
+
 	while (1) {
 		vc >> frame;
 		if (frame.data == NULL) break;
 		Mat backBoard(bkgImg.size(), bkgImg.depth(), Scalar(0));
 		cvtColor(frame, grayImg, CV_BGR2GRAY);
-		cvtColor(frame, grayImg2, CV_BGR2GRAY);
 		cvtColor(frame, ycrvb, CV_BGR2YCrCb);
 		inRange(ycrvb, Scalar(0, 133, 77), Scalar(255, 173, 127), ycrvb);
 
-		absdiff(grayImg, bkgImg, diffImg);
+		absdiff(grayImg, bkgImg, diffImg); // 현 프레임의 grayscale 영상과 첫 프레임과의 비교  
 		threshold(diffImg, diffImg, nThreshold, 255, CV_THRESH_BINARY);
 		removeHand(bkgImg, diffImg, backBoard, ycrvb);
 		cvtColor(backBoard, backBoard, CV_GRAY2BGR);
@@ -129,9 +125,11 @@ void sihyun()
 		rectangle(backBoard, keyD, Scalar(0, 0, 255), 3);
 		rectangle(backBoard, keyE, Scalar(0, 0, 255), 3);
 		rectangle(backBoard, keyG, Scalar(0, 0, 255), 3);
-		rectangle(backBoard, keyG, Scalar(0, 0, 255), 3);
 
 
+		for (int i = 0; i < keys.size() - 1; i++) {
+			
+		}
 		if (hitnoteD(backBoard) == 1) cout << "레" << endl;
 		else if (hitnoteE(backBoard) == 1) cout << "미" << endl;
 		else if (hitnoteG(backBoard) == 1) cout << "솔" << endl;
