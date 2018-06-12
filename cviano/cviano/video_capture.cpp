@@ -3,9 +3,9 @@
 #include "Key.h"
 
 
-int main() {
+int main2() {
 
-	/*
+	cv::VideoCapture stream1(1);
 
 	// 커밋 전에는 항상 메인 주석처리 하자!
 
@@ -13,21 +13,31 @@ int main() {
 	std::vector<kb::Key> keys;
 	cv::Rect keyboard_rect;
 
-	cv::VideoCapture vc("../../sample_image/test3.mov");
+	stream1.read(frame);
+	stream1.read(frame);
+	stream1.read(frame);
+	stream1.read(frame);
+	stream1.read(frame);
 
-	vc >> frame;
 
 	//sihyun();
 
-	
+
 	detectKeyboard(frame, keyborad, keyboard_rect);
-	
+
 	setWhiteKeyVector(frame, keyborad, keys, keyboard_rect);
 
 	cv::imshow("frame", frame);
 	cv::waitKey();
-	
-	*/
+
+
+	while (true) {
+		cv::Mat cameraFrame;
+		stream1.read(cameraFrame);
+		imshow("cam", cameraFrame);
+		if (cv::waitKey(30) >= 0)
+			break;
+	}
 
 	return 0;
 }

@@ -25,4 +25,5 @@ namespace cust
 
 void sihyun(std::vector<kb::Key> );
 void heesoo(cv::Mat& sorce, cv::Mat& dst, cv::Rect& rect);
+void detectKeyboard(cv::Mat& sorce, cv::Mat& destnation, cv::Rect& rect);
 #endif
