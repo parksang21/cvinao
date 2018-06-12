@@ -40,7 +40,7 @@ void heesoo(Mat& sorce, Mat& destnation, Rect& rect) {
 	int numOfLables = connectedComponentsWithStats(img_binary, img_labels,
 		stats, centroids, 8, CV_32S);
 
-	cout << "넘 오브 라벨스 : " << numOfLables << endl;
+	
 	//영역박스 그리기
 	int max = -1, idx = 0;
 	for (int j = 1; j < numOfLables; j++) {
@@ -49,7 +49,7 @@ void heesoo(Mat& sorce, Mat& destnation, Rect& rect) {
 		{
 			max = area;
 			idx = j;
-			cout << "idx값 : " << idx << endl;
+			
 		}
 	}
 
@@ -97,8 +97,7 @@ void heesoo(Mat& sorce, Mat& destnation, Rect& rect) {
 				if (sqrt(pow(temp.x - roi.cols, 2) + pow(0 - temp.y, 2)) < distance3) {
 					distance3 = sqrt(pow(temp.x - roi.cols, 2) + pow(temp.y - 0, 2));
 					roiRT = temp;
-					//cout << "변화중인 roiRT 값들 : " << roiRT << endl;
-					//cout << "그 점에서의 distance : " << distance3 << endl;
+					
 
 				}
 				if (sqrt(pow(temp.x - roi.cols, 2) + pow(temp.y - roi.rows, 2)) < distance4) {
