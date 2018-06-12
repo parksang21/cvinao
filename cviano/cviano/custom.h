@@ -24,6 +24,7 @@ namespace cust
 }
 
 void sihyun();
-void heesoo(cv::Mat& sorce, cv::Mat& dst, cv::Rect& rect);
+
 void detectKeyboard(cv::Mat& sorce, cv::Mat& destnation, cv::Rect& rect);
+void distortionRotation(cv::Mat& sorce, cv::Mat& dst, cv::Rect& rect);
 #endif
