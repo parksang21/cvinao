@@ -19,17 +19,29 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Binasc.cpp" />
     <ClCompile Include="custom.cpp" />
     <ClCompile Include="H_test.cpp" />
     <ClCompile Include="Key.cpp" />
     <ClCompile Include="K_test.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MidiEvent.cpp" />
+    <ClCompile Include="MidiEventList.cpp" />
+    <ClCompile Include="MidiFile.cpp" />
+    <ClCompile Include="MidiMessage.cpp" />
+    <ClCompile Include="Options.cpp" />
     <ClCompile Include="video_capture.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Binasc.h" />
     <ClInclude Include="custom.h" />
     <ClInclude Include="Key.h" />
     <ClInclude Include="LaplacianZC.h" />
+    <ClInclude Include="MidiEvent.h" />
+    <ClInclude Include="MidiEventList.h" />
+    <ClInclude Include="MidiFile.h" />
+    <ClInclude Include="MidiMessage.h" />
+    <ClInclude Include="Options.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
