@@ -178,6 +178,8 @@ void setWhiteKeyVector(cv::Mat& source, cv::Mat& roi, std::vector<kb::Key>& keys
 	cv::Mat morph;
 	morphologyEx(canny, morph, CV_MOP_CLOSE, kernel);
 
+	std::cout << canny.rows << "  " << canny.cols << std::endl;
+
 
 	std::vector<std::vector<cv::Point>> contours;
 	std::vector<cv::Vec4i> hierarchy;

@@ -13,12 +13,6 @@ int main2() {
 	std::vector<kb::Key> keys;
 	cv::Rect keyboard_rect;
 
-	stream1.read(frame);
-	stream1.read(frame);
-	stream1.read(frame);
-	stream1.read(frame);
-	stream1.read(frame);
-
 
 	//sihyun();
 
