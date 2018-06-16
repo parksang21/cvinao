@@ -3,7 +3,7 @@
 #include "Key.h"
 
 
-int main() {
+int main2() {
 
 	
 	
