@@ -38,8 +38,7 @@ void detectKeyboard(Mat& sorce, Mat& destnation, Rect& rect) {
 
 	//라벨링 
 	Mat img_labels, stats, centroids;
-	int numOfLables = connectedComponentsWithStats(img_binary, img_labels,
-		stats, centroids, 8, CV_32S);
+	int numOfLables = connectedComponentsWithStats(img_binary, img_labels, stats, centroids, 8, CV_32S);
 
 
 	//영역박스 그리기
@@ -70,15 +69,14 @@ void detectKeyboard(Mat& sorce, Mat& destnation, Rect& rect) {
 	destnation = realRoi.clone();
 
 
+
+
 }
 
 void distortionRotation(Mat& sorce, Mat& destnation, Rect& rect) {
 
-	Mat img_input;	
-	
+	Mat img_input;		
 	img_input = sorce;
-	
-	cvtColor(img_input, img_input, COLOR_BGR2GRAY);
 	Mat roi = img_input(rect);	
 	
 	
@@ -111,29 +109,33 @@ void distortionRotation(Mat& sorce, Mat& destnation, Rect& rect) {
 			}
 		}
 	}
-	
-	cvtColor(roi, roi, CV_GRAY2BGR);
+
 
 	//원본영상좌표 좌상,우상,좌하,우하
 	Point2f pts1[4] = {
-		roiLT,roiRT,roiLB,roiRB
+		roiLT + Point2i(rect.x,rect.y),roiRT + Point2i(rect.x,rect.y),roiLB + Point2i(rect.x,rect.y),roiRB + Point2i(rect.x,rect.y)
 	};
+
+	for (int i = 0; i < 4; i++) {
+		cout << pts1[i] << endl;
+	}
 
 
 	//목적영상좌표 좌상,우상,좌하,우하
 	Point2f pts2[4] = {
-		Point2f(0,0),Point2f(roi.cols,0),Point2f(0,roi.rows),Point2f(roi.cols,roi.rows)
-	};
+		Point2i(0,0) + Point2i(rect.x,rect.y),Point2i(roi.cols,0) + Point2i(rect.x,rect.y),Point2i(0,roi.rows) + Point2i(rect.x,rect.y),Point2i(roi.cols,roi.rows) + Point2i(rect.x,rect.y)
+	};	
 	for (int i = 0; i < 4; i++) {
-		cout << "원본영상좌표 : " << pts1[i] << endl;
+		cout << pts2[i] << endl;
 	}
 
-	Mat dst(roi.size(), CV_8UC1);
+	//Mat dst(roi.size(), CV_8UC1);
+	Mat dst;
 
 	
 	Mat perspect_map = getPerspectiveTransform(pts1, pts2);
 	warpPerspective(roi, dst, perspect_map, roi.size(), INTER_CUBIC);
-	
+
 	destnation = dst.clone();
 
 }
