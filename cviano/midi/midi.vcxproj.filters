@@ -13,78 +13,48 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="소스 파일\midi">
-      <UniqueIdentifier>{356bfcd8-5d05-4442-a81e-0db438a21ccd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="헤더 파일\midi">
-      <UniqueIdentifier>{86d261fd-fff1-49f4-b32a-f46e5cf754b1}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="custom.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Key.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="H_test.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="K_test.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="video_capture.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="Binasc.cpp">
-      <Filter>소스 파일\midi</Filter>
+      <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="MidiEvent.cpp">
-      <Filter>소스 파일\midi</Filter>
+      <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="MidiEventList.cpp">
-      <Filter>소스 파일\midi</Filter>
+      <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="MidiFile.cpp">
-      <Filter>소스 파일\midi</Filter>
+      <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="MidiMessage.cpp">
-      <Filter>소스 파일\midi</Filter>
+      <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Options.cpp">
-      <Filter>소스 파일\midi</Filter>
+      <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="custom.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Key.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="LaplacianZC.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="Binasc.h">
-      <Filter>헤더 파일\midi</Filter>
+      <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="MidiEvent.h">
-      <Filter>헤더 파일\midi</Filter>
+      <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="MidiEventList.h">
-      <Filter>헤더 파일\midi</Filter>
+      <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="MidiFile.h">
-      <Filter>헤더 파일\midi</Filter>
+      <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="MidiMessage.h">
-      <Filter>헤더 파일\midi</Filter>
+      <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Options.h">
-      <Filter>헤더 파일\midi</Filter>
+      <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

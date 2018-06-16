@@ -52,11 +52,11 @@ cv::Mat kb::Key::getMat() {
 }
 
 void kb::Key::setNote(int note) {
-	scale = note;
+	note = note;
 }
 
 int kb::Key::getNote() {
-	return scale;
+	return note;
 }
 
 
@@ -134,7 +134,7 @@ void kb::setMusicalNote(std::vector<kb::Key>& keys)
 	int start = 0;
 
 	if (key_num == 22)
-		start = F2;
+		start = 204;
 
 	for (std::vector<kb::Key>::iterator iter = keys.begin(); iter < keys.end(); iter++) 
 	{
@@ -177,6 +177,8 @@ void setWhiteKeyVector(cv::Mat& source, cv::Mat& roi, std::vector<kb::Key>& keys
 	cv::Mat kernel = cv::getStructuringElement(cv::MORPH_ELLIPSE, cv::Size(17, 17));
 	cv::Mat morph;
 	morphologyEx(canny, morph, CV_MOP_CLOSE, kernel);
+
+	std::cout << canny.rows << "  " << canny.cols << std::endl;
 
 
 	std::vector<std::vector<cv::Point>> contours;

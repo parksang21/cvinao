@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.27428.2015
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "cviano", "cviano\cviano.vcxproj", "{78462CC2-22E5-4FD4-8478-0E7C48E1CC34}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "midi", "midi\midi.vcxproj", "{A56B48DF-E2B1-4362-8219-FB2695A841D1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -21,6 +23,14 @@ Global
 		{78462CC2-22E5-4FD4-8478-0E7C48E1CC34}.Release|x64.Build.0 = Release|x64
 		{78462CC2-22E5-4FD4-8478-0E7C48E1CC34}.Release|x86.ActiveCfg = Release|Win32
 		{78462CC2-22E5-4FD4-8478-0E7C48E1CC34}.Release|x86.Build.0 = Release|Win32
+		{A56B48DF-E2B1-4362-8219-FB2695A841D1}.Debug|x64.ActiveCfg = Debug|x64
+		{A56B48DF-E2B1-4362-8219-FB2695A841D1}.Debug|x64.Build.0 = Debug|x64
+		{A56B48DF-E2B1-4362-8219-FB2695A841D1}.Debug|x86.ActiveCfg = Debug|Win32
+		{A56B48DF-E2B1-4362-8219-FB2695A841D1}.Debug|x86.Build.0 = Debug|Win32
+		{A56B48DF-E2B1-4362-8219-FB2695A841D1}.Release|x64.ActiveCfg = Release|x64
+		{A56B48DF-E2B1-4362-8219-FB2695A841D1}.Release|x64.Build.0 = Release|x64
+		{A56B48DF-E2B1-4362-8219-FB2695A841D1}.Release|x86.ActiveCfg = Release|Win32
+		{A56B48DF-E2B1-4362-8219-FB2695A841D1}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
