@@ -26,9 +26,9 @@ int main2() {
 	setWhiteKeyVector(frame, keyborad, keys, keyboard_rect);
 
 	//cv::imshow("frame", frame);
-	cv::waitKey();
+	//cv::waitKey();
 	
 	
-
+	sihyun(keys, vc);
 	return 0;
 }
