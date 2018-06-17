@@ -56,7 +56,6 @@
 #define AS2 46
 #define B2 47
 
-
 #define C3 48
 #define CS3 49
 #define D3 50
@@ -69,6 +68,7 @@
 #define A3 57
 #define AS3 58
 #define B3 59
+
 #define C4 60
 #define CS4 61
 #define D4 62
@@ -81,6 +81,7 @@
 #define A4 69
 #define AS4 70
 #define B4 71
+
 #define C5 72
 #define CS5 73
 #define D5 74
@@ -93,6 +94,32 @@
 #define A5 81
 #define AS5 82
 #define B5 83
+
+#define C6 84
+#define CS6 85
+#define D6 86
+#define DS6 87
+#define E6 88
+#define F6 89
+#define FS6 90
+#define G6 91
+#define GS6 92
+#define A6 93
+#define AS6 94
+#define B6 95
+
+#define C7 96
+#define CS7 97
+#define D7 98
+#define DS7 99
+#define E7 100
+#define F7 101
+#define FS7 102
+#define G7 103
+#define GS7 104
+#define A7 105
+#define AS7 106
+#define B7 107
 
 
 
