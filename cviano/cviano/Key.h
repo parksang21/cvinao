@@ -2,7 +2,7 @@
 
 #include "custom.h"
 
-// for key type
+// for key_type
 #define WHITE_KEY 0
 #define BLACK_KEY 1
 
