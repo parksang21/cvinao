@@ -26,7 +26,7 @@ namespace kb{
 	private:
 		int note = -1;
 		int key_type;
-		cv::Rect rect;		// ROI 영역을 만들기 위한 rect 객체
+		cv::Rect rect;	// ROI 영역을 만들기 위한 rect 객체
 		std::vector<cv::Point> contour;
 
 	public:

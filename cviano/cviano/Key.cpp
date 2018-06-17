@@ -94,19 +94,36 @@ void kb::mapKeys(cv::Mat& source, cv::Mat& image, std::vector<std::vector<cv::Po
 			iter--;
 		}
 	}
-
+	
+	cv::Point origin = srect.tl();
 	for (std::vector<std::vector<cv::Point>>::iterator iter = contours.begin(); 
 		iter < contours.end(); 
 		iter++) 
 	{
 		cv::Rect r = boundingRect(*iter);
-		r += srect.tl();
+		r += origin;
+
+		for (std::vector<cv::Point>::iterator point = iter->begin();
+			point < iter->end(); point++) {
+			*point += origin;
+		}
+
 		kb::Key key(source, r, *iter, WHITE_KEY);
 		keys.push_back(key);
 	}
+
 	int image_size = image.size().area();
 	int criteria = image_size / (int)keys.size();
+
+	cv::Mat test(image.size(), CV_8UC3);
+	cv::drawContours(source, contours, -1, cv::Scalar(0, 0, 255));
+
+	cv::imshow("test", source);
+	cv::waitKey();
+
 	// 작은 것들 삭제하기
+
+	/*
 	for (std::vector<kb::Key>::iterator iter = keys.begin(); iter < keys.end(); iter++) 
 	{
 		cv::Rect r = iter->getRect();
@@ -115,12 +132,12 @@ void kb::mapKeys(cv::Mat& source, cv::Mat& image, std::vector<std::vector<cv::Po
 		{
 			keys.erase(iter);
 			iter--;
-			continue;
 		}
 	}
+	*/
+
 
 	// key 값 정제하기
-
 	std::sort(keys.begin(), keys.end(), kb::compareKeys);
 	
 	if (keys.size() > 22)
