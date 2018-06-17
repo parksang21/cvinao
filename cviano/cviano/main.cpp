@@ -3,7 +3,7 @@
 #include "Key.h"
 
 
-int main2() {
+int main() {
 	// 커밋 전에는 항상 메인 주석처리 하자!
 
 	cv::Mat keyborad, frame;
@@ -21,7 +21,7 @@ int main2() {
 
 	//필요치는 않을것으로 예상되나, 사각형안의 건반에 대하여 삐뚤어졌을경우 똑바로 세워주는것
 	
-	distortionRotation(frame,keyborad,keyboard_rect);
+	//distortionRotation(frame,keyborad,keyboard_rect);
 
 	setWhiteKeyVector(frame, keyborad, keys, keyboard_rect);
 
@@ -29,6 +29,6 @@ int main2() {
 	//cv::waitKey();
 	
 	
-	sihyun(keys, vc);
+	//sihyun(keys, vc);
 	return 0;
 }
