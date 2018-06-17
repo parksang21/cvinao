@@ -52,7 +52,7 @@ cv::Mat kb::Key::getMat() {
 }
 
 void kb::Key::setNote(int note) {
-	note = note;
+	this->note = note;
 }
 
 int kb::Key::getNote() {
@@ -66,6 +66,35 @@ int kb::Key::getNote() {
 
 void kb::mapKeys(cv::Mat& source, cv::Mat& image, std::vector<std::vector<cv::Point>>& contours, std::vector<kb::Key>& keys, cv::Rect srect)
 {
+	
+	int cont_sum = 0, avg_cont = 0;
+
+	for (std::vector<std::vector<cv::Point>>::iterator iter = contours.begin();
+		iter < contours.end();
+		iter++)
+	{
+		cont_sum += cv::contourArea(*iter);
+		if (cv::contourArea(*iter) >= (double)image.size().area() / 2)
+		{
+			contours.erase(iter);
+			cont_sum = 0;
+			iter = contours.begin();
+		}
+	}
+
+	avg_cont = cont_sum / contours.size();
+
+	for (std::vector<std::vector<cv::Point>>::iterator iter = contours.begin();
+		iter < contours.end();
+		iter++)
+	{
+		if (cv::contourArea(*iter) < avg_cont)
+		{
+			contours.erase(iter);
+			iter--;
+		}
+	}
+
 	for (std::vector<std::vector<cv::Point>>::iterator iter = contours.begin(); 
 		iter < contours.end(); 
 		iter++) 
@@ -75,9 +104,8 @@ void kb::mapKeys(cv::Mat& source, cv::Mat& image, std::vector<std::vector<cv::Po
 		kb::Key key(source, r, *iter, WHITE_KEY);
 		keys.push_back(key);
 	}
-
 	int image_size = image.size().area();
-	int criteria = image_size / keys.size();
+	int criteria = image_size / (int)keys.size();
 	// 작은 것들 삭제하기
 	for (std::vector<kb::Key>::iterator iter = keys.begin(); iter < keys.end(); iter++) 
 	{
@@ -104,7 +132,7 @@ void kb::mapKeys(cv::Mat& source, cv::Mat& image, std::vector<std::vector<cv::Po
 			sum += iter->getRect().width + iter->getRect().height;
 		}
 
-		int average = sum / keys.size();
+		int average = sum / (int) keys.size();
 
 		for (std::vector<kb::Key>::iterator iter = keys.begin(); iter < keys.end(); iter++)
 		{
@@ -130,18 +158,16 @@ bool kb::compareKeys(kb::Key key1, kb::Key key2)
 
 void kb::setMusicalNote(std::vector<kb::Key>& keys) 
 {
-	int key_num = keys.size();
+	int key_num = (int) keys.size();
 	int start = 0;
 
 	if (key_num == 22)
-		start = 204;
+		start = (int) kb::NOTE::E4;
 
 	for (std::vector<kb::Key>::iterator iter = keys.begin(); iter < keys.end(); iter++) 
 	{
 		iter->setNote(start);
 		start++;
-
-		if (start % 10 > 7) start += 93;
 	}
 
 }
@@ -186,12 +212,13 @@ void setWhiteKeyVector(cv::Mat& source, cv::Mat& roi, std::vector<kb::Key>& keys
 
 	cv::rectangle(morph, cv::Rect(cv::Point(0, 0), cv::Size(morph.size())), cv::Scalar(255), 5);
 	cv::findContours(morph, contours, hierarchy, CV_RETR_LIST, CV_CHAIN_APPROX_SIMPLE, cv::Point(0, 0));
+;
+
 	std::sort(contours.begin(), contours.end(), cust::compareContourAreas);
 
 	kb::mapKeys(source, image, contours, keys, rect);
-	kb::setMusicalNote(keys);
 
-	kb::drawKeys(source, keys);
-	imshow("s", source);
-	cv::waitKey(0);
+
+	// 흑건까지 찾은 뒤에 해야할 일.
+	kb::setMusicalNote(keys);
 }
