@@ -3,48 +3,44 @@
 #include "Key.h"
 
 
-int main3() {
+int main() {
 
-	cv::VideoCapture stream1(3);
+	cv::VideoCapture stream1(1);
 
 	// 커밋 전에는 항상 메인 주석처리 하자!
 
-	cv::Mat keyborad, frame;
+	cv::Mat keyboard, frame;
 	std::vector<kb::Key> keys;
-	cv::Rect keyboard_rect;
+	
+	cv::Rect  keyboard_rect;
+
+	stream1.set(CV_CAP_PROP_FRAME_WIDTH, 1280);
+	stream1.set(CV_CAP_PROP_FRAME_HEIGHT, 720);
 
 	stream1.read(frame);
-	stream1.read(frame);
-	stream1.read(frame);
-	stream1.read(frame);
-	stream1.read(frame);
-	stream1.read(frame);
-	stream1.read(frame);
-	stream1.read(frame);
-	stream1.read(frame);
-	stream1.read(frame);
-	stream1.read(frame);
 
-	std::cout << frame.rows << std::endl;
-	std::cout << frame.cols << std::endl;
-	//sihyun();
-
-
-	detectKeyboard(frame, keyborad, keyboard_rect);
-
-	setWhiteKeyVector(frame, keyborad, keys, keyboard_rect);
-
-	cv::imshow("frame", frame);
-	cv::waitKey();
+	//cv::Rect keyboard_rect(cv::Point(20, frame.rows/3), cv::Size(frame.cols/40*38, frame.rows / 20 * 7));
 
 
 	while (true) {
-		cv::Mat cameraFrame;
-		stream1.read(cameraFrame);
-		imshow("cam", cameraFrame);
+		stream1.read(frame);
+		//cv::rectangle(frame, keyboard_rect, cv::Scalar(0, 0, 255), 2);
+		imshow("cam", frame);
 		if (cv::waitKey(30) >= 0)
 			break;
 	}
+
+	
+
+	//keyboard = frame(keyboard_rect);
+
+	detectKeyboard(frame, keyboard, keyboard_rect);
+
+	setWhiteKeyVector(frame, keyboard, keys, keyboard_rect);
+
+
+
+
 
 	return 0;
 }

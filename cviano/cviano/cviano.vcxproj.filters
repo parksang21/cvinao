@@ -5,10 +5,6 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="헤더 파일">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
     <Filter Include="리소스 파일">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
@@ -16,7 +12,11 @@
     <Filter Include="소스 파일\midi">
       <UniqueIdentifier>{356bfcd8-5d05-4442-a81e-0db438a21ccd}</UniqueIdentifier>
     </Filter>
-    <Filter Include="헤더 파일\midi">
+    <Filter Include="소스 파일\헤더 파일">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="소스 파일\헤더 파일\midi">
       <UniqueIdentifier>{86d261fd-fff1-49f4-b32a-f46e5cf754b1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -60,31 +60,31 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="custom.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>소스 파일\헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Key.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>소스 파일\헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="LaplacianZC.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>소스 파일\헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Binasc.h">
-      <Filter>헤더 파일\midi</Filter>
+      <Filter>소스 파일\헤더 파일\midi</Filter>
     </ClInclude>
     <ClInclude Include="MidiEvent.h">
-      <Filter>헤더 파일\midi</Filter>
+      <Filter>소스 파일\헤더 파일\midi</Filter>
     </ClInclude>
     <ClInclude Include="MidiEventList.h">
-      <Filter>헤더 파일\midi</Filter>
+      <Filter>소스 파일\헤더 파일\midi</Filter>
     </ClInclude>
     <ClInclude Include="MidiFile.h">
-      <Filter>헤더 파일\midi</Filter>
+      <Filter>소스 파일\헤더 파일\midi</Filter>
     </ClInclude>
     <ClInclude Include="MidiMessage.h">
-      <Filter>헤더 파일\midi</Filter>
+      <Filter>소스 파일\헤더 파일\midi</Filter>
     </ClInclude>
     <ClInclude Include="Options.h">
-      <Filter>헤더 파일\midi</Filter>
+      <Filter>소스 파일\헤더 파일\midi</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
