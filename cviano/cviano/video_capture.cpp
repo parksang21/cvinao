@@ -3,7 +3,7 @@
 #include "Key.h"
 
 
-int main() {
+int main2() {
 
 	cv::VideoCapture stream1(1);
 
