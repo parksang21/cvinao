@@ -1,5 +1,6 @@
 #include "custom.h"
 #include "Key.h"
+
 using namespace cv;
 using namespace std;
 
@@ -97,7 +98,7 @@ int hitnoteC(Mat video1) {
 }
 
 
-void sihyun(std::vector<kb::Key> keys,	cv::VideoCapture vc,std::vector<int>& preNote)
+void sihyun(std::vector<kb::Key> keys,	cv::VideoCapture vc, std::vector<std::pair<int, int>>& preNote)
 {	
 
 	Mat bkgImg, frame, ycrvb, hand, grayImg, diffImg;;
@@ -109,7 +110,7 @@ void sihyun(std::vector<kb::Key> keys,	cv::VideoCapture vc,std::vector<int>& pre
 	Mat backBoard(bkgImg.size(), bkgImg.depth(), Scalar(0));
 	int nThreshold = 50;
 	//vector<string> note;
-
+	int NoFrame = 0;
 	while (1) {
 		vc >> frame;
 		if (frame.data == NULL) break;
@@ -164,27 +165,28 @@ void sihyun(std::vector<kb::Key> keys,	cv::VideoCapture vc,std::vector<int>& pre
 			keys[i].detectPress();
 		}
 		*/
+		//imshow("aa", backBoard);
 		for (int i = 0; i < keys.size(); i++) {
-			if(keys[i].detectPress(backBoard))preNote.push_back(keys[i].getNote());
+			if(keys[i].detectPress(backBoard))preNote.push_back(make_pair(keys[i].getNote(),NoFrame));
 		}
 		/*
 		resize(backBoard, backBoard, Size(1080, 720));
 		imshow("hand", backBoard);
 		*/
-		for (int i = 0; i < preNote.size();i++) {
-			cout << preNote[i] << endl;
-		}
+
 		char chKey = cvWaitKey(1);
 		if (chKey == 27) {
 			break;
 		}
-		
+		NoFrame++;
 	}
 	/*
 	for (String n : note) {
 		cout << n << endl;
 	}*/
 	
-
+	for (int i = 0; i < preNote.size(); i++) {
+		cout << "["<<preNote[i].first <<", "<<preNote[i].second<<"]"<< endl;
+	}
 	waitKey();
 }

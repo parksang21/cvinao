@@ -51,6 +51,6 @@ namespace kb{
 	void drawKeys(cv::Mat& image, std::vector<kb::Key> keys);
 }
 
-
+	
 void setWhiteKeyVector(cv::Mat& src, cv::Mat& dst, std::vector<kb::Key>& keys, cv::Rect rect);
-void sihyun(std::vector<kb::Key>, cv::VideoCapture,std::vector<int>&);
+void sihyun(std::vector<kb::Key>, cv::VideoCapture,std::vector<std::pair<int,int>>&);

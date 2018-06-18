@@ -5,9 +5,10 @@
 #define CL
 
 #include <iostream>
-#include <vector>
 #include <opencv2\opencv.hpp>
+#include <vector>
 #include <cmath>
+#include <utility>
 
 #define PrintIVector(c, vector) {cout << endl << c << endl; for(int i : vector) cout << i << endl;}
 

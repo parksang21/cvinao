@@ -8,7 +8,7 @@ int main() {
 	cv::Mat keyborad, frame;
 	std::vector<kb::Key> keys;
 	cv::Rect keyboard_rect;
-	std::vector <int> preNote, output_note;
+	std::vector <std::pair<int,int>> preNote, output_note;
 	cv::VideoCapture vc("../../sample_image/test3.mov");
 
 	vc >> frame;
