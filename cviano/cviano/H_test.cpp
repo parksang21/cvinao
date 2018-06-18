@@ -97,7 +97,7 @@ int hitnoteC(Mat video1) {
 }
 
 
-void sihyun(std::vector<kb::Key> keys,	cv::VideoCapture vc)
+void sihyun(std::vector<kb::Key> keys,	cv::VideoCapture vc,std::vector<int>& preNote)
 {	
 
 	Mat bkgImg, frame, ycrvb, hand, grayImg, diffImg;;
@@ -108,12 +108,8 @@ void sihyun(std::vector<kb::Key> keys,	cv::VideoCapture vc)
 	cvtColor(bkgImg, bkgImg, CV_BGR2GRAY);
 	Mat backBoard(bkgImg.size(), bkgImg.depth(), Scalar(0));
 	int nThreshold = 50;
-	vector<string> note;
-	char Cstack=0;
-	char Dstack=0;
-	char Estack=0;
-	char Gstack=0;
-	char Xstack = 0;
+	//vector<string> note;
+
 	while (1) {
 		vc >> frame;
 		if (frame.data == NULL) break;
@@ -122,26 +118,27 @@ void sihyun(std::vector<kb::Key> keys,	cv::VideoCapture vc)
 		cvtColor(frame, grayImg, CV_BGR2GRAY);
 		cvtColor(frame, ycrvb, CV_BGR2YCrCb);
 
-		inRange(ycrvb, Scalar(0, 139, 79), Scalar(255, 161, 121), ycrvb);
-
+		inRange(ycrvb, Scalar(0, 138, 79), Scalar(255, 162, 121), ycrvb);
+		
 		absdiff(grayImg, bkgImg, diffImg); // 현 프레임의 grayscale 영상과 첫 프레임과의 비교  
 		threshold(diffImg, diffImg, nThreshold, 255, CV_THRESH_BINARY);
 		removeHand(bkgImg, diffImg, backBoard, ycrvb);
 		cvtColor(backBoard, backBoard, CV_GRAY2BGR);
+		
+		/*
 		rectangle(backBoard, keyC, Scalar(0, 0, 255), 3);
 		rectangle(backBoard, keyD, Scalar(0, 0, 255), 3);
 		rectangle(backBoard, keyE, Scalar(0, 0, 255), 3);
 		rectangle(backBoard, keyG, Scalar(0, 0, 255), 3);
-
-
-		for (int i = 0; i < keys.size() - 1; i++) {
-
-		}
+		
+		
+		
 		if (hitnoteE(backBoard)) { cout << "미" << endl; Estack++; }
 		else if (hitnoteD(backBoard)) { cout << "레" << endl; Dstack++; }
 		else if (hitnoteC(backBoard)) { cout << "도" << endl; Cstack++; }
 		else if (hitnoteG(backBoard)) { cout << "솔" << endl; Gstack++; }
 		else { cout << "X" << endl; Xstack++; }
+
 		if (Cstack == 3) {
 			note.push_back("도"); Cstack = 0; Dstack = 0; Estack = 0; Gstack = 0; Xstack = 0;
 		}
@@ -151,29 +148,43 @@ void sihyun(std::vector<kb::Key> keys,	cv::VideoCapture vc)
 		}
 		if (Gstack == 3) { note.push_back("솔"); Cstack = 0; Dstack = 0; Estack = 0; Gstack = 0; Xstack = 0;
 		}
-		//if (Xstack == 8) { note.push_back("X"); Cstack = 0; Dstack = 0; Estack = 0; Gstack = 0; Xstack = 0;
-		//}
+		if (Xstack == 8) { note.push_back("X"); Cstack = 0; Dstack = 0; Estack = 0; Gstack = 0; Xstack = 0;
+		}
 
 		resize(backBoard, backBoard, Size(1080, 720));
 		imshow("remove", backBoard);
-		
+		*/
 		/*
 		for (int i = 0; i < ycrvb.rows; i++) {
 			for (int j = 0; j < ycrvb.cols; j++) {
 				if (*ycrvb.ptr<uchar>(i, j) == 255) *backBoard.ptr<uchar>(i, j) = *frame.ptr<uchar>(i, j);
 			}
 		}
+		for (int i = 0; i < keys.size(); i++) {
+			keys[i].detectPress();
+		}
 		*/
-		//resize(backBoard, backBoard, Size(1080, 720));
-		//imshow("hand", backBoard);
+		for (int i = 0; i < keys.size(); i++) {
+			if(keys[i].detectPress(backBoard))preNote.push_back(keys[i].getNote());
+		}
+		/*
+		resize(backBoard, backBoard, Size(1080, 720));
+		imshow("hand", backBoard);
+		*/
+		for (int i = 0; i < preNote.size();i++) {
+			cout << preNote[i] << endl;
+		}
 		char chKey = cvWaitKey(1);
 		if (chKey == 27) {
 			break;
 		}
+		
 	}
+	/*
 	for (String n : note) {
 		cout << n << endl;
-	}
+	}*/
+	
 
 	waitKey();
 }

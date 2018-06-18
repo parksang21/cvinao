@@ -2,14 +2,13 @@
 #include "custom.h"
 #include "Key.h"
 
-
-int main2() {
+int main() {
 	// 커밋 전에는 항상 메인 주석처리 하자!
 
 	cv::Mat keyborad, frame;
 	std::vector<kb::Key> keys;
 	cv::Rect keyboard_rect;
-
+	std::vector <int> preNote, output_note;
 	cv::VideoCapture vc("../../sample_image/test3.mov");
 
 	vc >> frame;
@@ -29,6 +28,6 @@ int main2() {
 	//cv::waitKey();
 	
 	
-	sihyun(keys, vc);
+	sihyun(keys, vc,preNote);
 	return 0;
 }
