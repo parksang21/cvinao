@@ -1,7 +1,10 @@
 #include "custom.h"
+#include <vector>
 
 using namespace std;
 using namespace cv;
+
+
 
 
 void detectKeyboard(Mat& sorce, Mat& destnation, Rect& rect) {
@@ -72,15 +75,52 @@ void detectKeyboard(Mat& sorce, Mat& destnation, Rect& rect) {
 	//rectangle(img_input, Point(left, top), Point(left + width, top + height), Scalar(0, 0, 255), 3);
 	//rectangle(img_binary, Point(left, top), Point(left + width, top + height), Scalar(255, 255, 255), 1);
 
-	imshow("tes", img_input);
-	waitKey(0);
 
 	Rect roiRect(Point2i(left, top), Point2i(left + width, top + height));
 	Mat realRoi = img_input(roiRect);
 	rect = roiRect;
 	destnation = realRoi.clone();
 
+}
+void draw_houghLines(Mat image, Mat& dst, vector<Vec2f> lines, int nline)
+{
+	cvtColor(image, dst, CV_GRAY2BGR);
+	for (size_t i = 0; i < min((int)lines.size(), nline); i++) {
+		float rho = lines[i][0], theta = lines[i][1];
+		double a = cos(theta), b = sin(theta);
+		Point2d pt(a*rho, b*rho);
+		Point2d delta(10000 * -b, 10000 * a);
+		line(dst, pt + delta, pt - delta, Scalar(0, 255, 0), 1, LINE_AA);
+	}
+}
 
+void detectKeyboard2(Mat& source){
+	Mat image, canny, dst1;
+	image = source;
+
+	cvtColor(image, image, CV_BGR2GRAY);
+	double rho = 1, theta = 1;
+	
+	CV_Assert(image.data);
+
+
+
+	GaussianBlur(image, canny, Size(5,5), 2, 2);
+	Canny(canny, canny, 125, 350,3);
+
+
+	vector<Vec2f> lines;
+	HoughLines(canny, lines, rho, theta, 50);
+
+	cvtColor(image, image, CV_GRAY2BGR);
+	draw_houghLines(canny, image, lines, 60);
+
+
+	//namedWindow("hii",WINDOW_NORMAL);
+	//resizeWindow("hii", image.size());
+	imshow("hii", image);
+
+	waitKey(0);
 
 
 }

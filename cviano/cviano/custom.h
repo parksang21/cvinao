@@ -8,7 +8,6 @@
 #include <vector>
 #include <opencv2\opencv.hpp>
 #include <cmath>
-
 #define PrintIVector(c, vector) {cout << endl << c << endl; for(int i : vector) cout << i << endl;}
 
 namespace cust
@@ -27,5 +26,6 @@ namespace cust
 
 
 void detectKeyboard(cv::Mat& sorce, cv::Mat& destnation, cv::Rect& rect);
+void detectKeyboard2(cv::Mat& source);
 void distortionRotation(cv::Mat& sorce, cv::Mat& dst, cv::Rect& rect);
 #endif
