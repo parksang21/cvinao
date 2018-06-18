@@ -99,13 +99,13 @@ void detectKeyboard2(Mat& source){
 	image = source;
 
 	cvtColor(image, image, CV_BGR2GRAY);
-	double rho = 1, theta = 1;
+	double rho = 1, theta = CV_PI/180;
 	
 	CV_Assert(image.data);
 
 
 
-	GaussianBlur(image, canny, Size(5,5), 2, 2);
+	GaussianBlur(image, canny, Size(3,3), 2, 2);
 	Canny(canny, canny, 125, 350,3);
 
 
@@ -113,7 +113,7 @@ void detectKeyboard2(Mat& source){
 	HoughLines(canny, lines, rho, theta, 50);
 
 	cvtColor(image, image, CV_GRAY2BGR);
-	draw_houghLines(canny, image, lines, 60);
+	draw_houghLines(canny, image, lines, 2);
 
 
 	//namedWindow("hii",WINDOW_NORMAL);
