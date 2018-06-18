@@ -3,7 +3,7 @@
 #include "Key.h"
 
 
-int main() {
+int main2() {
 	// 커밋 전에는 항상 메인 주석처리 하자!
 
 	cv::Mat keyborad, frame;

@@ -66,7 +66,6 @@ int kb::Key::getNote() {
 
 void kb::mapKeys(cv::Mat& source, cv::Mat& image, std::vector<std::vector<cv::Point>>& contours, std::vector<kb::Key>& keys, cv::Rect srect)
 {
-	
 	int cont_sum = 0, avg_cont = 0;
 
 	for (std::vector<std::vector<cv::Point>>::iterator iter = contours.begin();
@@ -213,15 +212,15 @@ void setWhiteKeyVector(cv::Mat& source, cv::Mat& roi, std::vector<kb::Key>& keys
 	adaptiveThreshold(image, binary_adaptive, 255, cv::ADAPTIVE_THRESH_MEAN_C, cv::THRESH_BINARY, 21, 10);
 
 	binary_adaptive = 255 - binary_adaptive;
-
+	imshow("binary", binary_adaptive);
 	GaussianBlur(binary_adaptive, binary_adaptive, cv::Size(), 2, 2);
 	Canny(binary_adaptive, canny, 125, 350);
 
-	cv::Mat kernel = cv::getStructuringElement(cv::MORPH_ELLIPSE, cv::Size(17, 17));
+	cv::Mat kernel = cv::getStructuringElement(cv::MORPH_ELLIPSE, cv::Size(15, 15));
 	cv::Mat morph;
 	morphologyEx(canny, morph, CV_MOP_CLOSE, kernel);
 
-	std::cout << canny.rows << "  " << canny.cols << std::endl;
+	imshow("morph", morph);
 
 
 	std::vector<std::vector<cv::Point>> contours;
