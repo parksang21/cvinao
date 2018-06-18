@@ -19,6 +19,8 @@ int main() {
 	//획득한 전체영상에서 흰부분 기준으로 건반의 위치에 사각형
 	detectKeyboard(frame, keyborad, keyboard_rect);
 
+
+	std::cout << "사이즈" << frame.cols << "   " << frame.rows<<std::endl;
 	//필요치는 않을것으로 예상되나, 사각형안의 건반에 대하여 삐뚤어졌을경우 똑바로 세워주는것
 	
 	//distortionRotation(frame,keyborad,keyboard_rect);

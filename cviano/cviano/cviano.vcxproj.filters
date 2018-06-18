@@ -57,9 +57,6 @@
     <ClCompile Include="Options.cpp">
       <Filter>소스 파일\midi</Filter>
     </ClCompile>
-    <ClCompile Include="Iwilldoit.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="custom.h">
