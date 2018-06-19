@@ -1,6 +1,6 @@
 #include "custom.h"
 #include <vector>
-
+#define PrintIVector(c, vector) {cout << endl << c << endl; for(double  i : vector) cout << i << endl;}
 using namespace std;
 using namespace cv;
 
@@ -9,23 +9,23 @@ using namespace cv;
 
 void detectKeyboard(Mat& sorce, Mat& destnation, Rect& rect) {
 
-	int LowH = 0;
-	int HighH = 120;
+	int LowH = 80;
+	int HighH = 130;
 
 	int LowS = 0;
-	int HighS = 85;
+	int HighS = 150;
 
-	int LowV = 170;
+	int LowV = 150;
 	int HighV = 255;
 	Mat img_input, img_hsv, img_binary;
 
-	int LowR = 110;
+	int LowR = 150;
 	int HighR = 255;
 
-	int LowG = 110;
+	int LowG = 150;
 	int HighG = 255;
 
-	int LowB = 110;
+	int LowB = 150;
 	int HighB = 255;
 
 
@@ -36,8 +36,8 @@ void detectKeyboard(Mat& sorce, Mat& destnation, Rect& rect) {
 	cvtColor(img_input, img_hsv, COLOR_BGR2HSV);
 
 	//지정한 HSV 범위를 이용하여 영상을 이진화
-	inRange(img_hsv, Scalar(LowH, LowS, LowV), Scalar(HighH, HighS, HighV), img_binary);
-	//inRange(img_input, Scalar(LowR, LowG, LowB), Scalar(HighR, HighG, HighB), img_binary);
+	//inRange(img_hsv, Scalar(LowH, LowS, LowV), Scalar(HighH, HighS, HighV), img_binary);
+	inRange(img_input, Scalar(LowR, LowG, LowB), Scalar(HighR, HighG, HighB), img_binary);
 
 	//morphological opening 작은 점들을 제거 
 	erode(img_binary, img_binary, getStructuringElement(MORPH_ELLIPSE, Size(5, 5)), Point(-1, -1), 2);
@@ -72,7 +72,7 @@ void detectKeyboard(Mat& sorce, Mat& destnation, Rect& rect) {
 	int height = stats.at<int>(idx, CC_STAT_HEIGHT);
 
 
-	//rectangle(img_input, Point(left, top), Point(left + width, top + height), Scalar(0, 0, 255), 3);
+	rectangle(img_input, Point(left, top), Point(left + width, top + height), Scalar(0, 0, 255), 3);
 	//rectangle(img_binary, Point(left, top), Point(left + width, top + height), Scalar(255, 255, 255), 1);
 
 
@@ -82,22 +82,29 @@ void detectKeyboard(Mat& sorce, Mat& destnation, Rect& rect) {
 	destnation = realRoi.clone();
 
 }
-void draw_houghLines(Mat image, Mat& dst, vector<Vec2f> lines, int nline)
+void draw_houghLines(Mat image, Mat& dst, vector<Vec2f> lines, int nline, vector<Point2d>& linePts)
 {
+	
+	
 	cvtColor(image, dst, CV_GRAY2BGR);
 	for (size_t i = 0; i < min((int)lines.size(), nline); i++) {
 		float rho = lines[i][0], theta = lines[i][1];
 		double a = cos(theta), b = sin(theta);
 		Point2d pt(a*rho, b*rho);
-		Point2d delta(10000 * -b, 10000 * a);
-		line(dst, pt + delta, pt - delta, Scalar(0, 255, 0), 1, LINE_AA);
+		Point2d delta(10000 * -b, 10000 * a); 
+
+		linePts.push_back(pt + delta);
+		linePts.push_back(pt - delta);
+		
+		line(dst, pt + delta, pt - delta, Scalar(0, 255, 0), 1, LINE_AA);		
 	}
+	
 }
 
 void detectKeyboard2(Mat& source){
 	Mat image, canny, dst1;
 	image = source;
-
+	imshow("컬러변환전", image);
 	cvtColor(image, image, CV_BGR2GRAY);
 	double rho = 1, theta = CV_PI/180;
 	
@@ -110,10 +117,16 @@ void detectKeyboard2(Mat& source){
 
 
 	vector<Vec2f> lines;
+	vector<Point2d> linePts;
 	HoughLines(canny, lines, rho, theta, 50);
 
+
+	
 	cvtColor(image, image, CV_GRAY2BGR);
-	draw_houghLines(canny, image, lines, 2);
+
+	draw_houghLines(canny, image, lines, 2, linePts);
+	
+	
 
 
 	//namedWindow("hii",WINDOW_NORMAL);
