@@ -9,23 +9,23 @@ using namespace cv;
 
 void detectKeyboard(Mat& sorce, Mat& destnation, Rect& rect) {
 
-	int LowH = 80;
-	int HighH = 130;
+	int LowH = 0;      
+	int HighH = 170;
 
 	int LowS = 0;
-	int HighS = 150;
+	int HighS = 100;  //4,5,6에 대해서 150
 
-	int LowV = 150;
-	int HighV = 255;
+	int LowV = 120;     // 4,5,6에 대해서 150  7에 대해서 80
+	int HighV = 240;      //4,5,6에 대해서 255 
 	Mat img_input, img_hsv, img_binary;
 
-	int LowR = 150;
+	int LowR = 160;    //4,5,6에 대해서 RGB모두 150~255  7번에 대하여 160
 	int HighR = 255;
 
-	int LowG = 150;
+	int LowG = 150;     // 7번에 대하여 150
 	int HighG = 255;
 
-	int LowB = 150;
+	int LowB = 150;     // 7번에 대하여 150
 	int HighB = 255;
 
 
@@ -40,12 +40,12 @@ void detectKeyboard(Mat& sorce, Mat& destnation, Rect& rect) {
 	inRange(img_input, Scalar(LowR, LowG, LowB), Scalar(HighR, HighG, HighB), img_binary);
 
 	//morphological opening 작은 점들을 제거 
-	erode(img_binary, img_binary, getStructuringElement(MORPH_ELLIPSE, Size(5, 5)), Point(-1, -1), 2);
-	dilate(img_binary, img_binary, getStructuringElement(MORPH_ELLIPSE, Size(5, 5)), Point(-1, -1), 2);
+	erode(img_binary, img_binary, getStructuringElement(MORPH_ELLIPSE, Size(5, 5)), Point(-1, -1), 1);
+	dilate(img_binary, img_binary, getStructuringElement(MORPH_ELLIPSE, Size(5, 5)), Point(-1, -1), 1);
 
 	//morphological closing 영역의 구멍 메우기 
-	dilate(img_binary, img_binary, getStructuringElement(MORPH_ELLIPSE, Size(5, 5)), Point(-1, -1), 2);
-	erode(img_binary, img_binary, getStructuringElement(MORPH_ELLIPSE, Size(5, 5)), Point(-1, -1), 2);
+	dilate(img_binary, img_binary, getStructuringElement(MORPH_ELLIPSE, Size(5, 5)), Point(-1, -1), 5);  // 7번에 대하여 반복 5
+	erode(img_binary, img_binary, getStructuringElement(MORPH_ELLIPSE, Size(7, 7)), Point(-1, -1), 1); //7번에 대하여 size 7,7  반복 1
 
 
 	//라벨링 
@@ -69,7 +69,8 @@ void detectKeyboard(Mat& sorce, Mat& destnation, Rect& rect) {
 	int left = stats.at<int>(idx, CC_STAT_LEFT);
 	int top = stats.at<int>(idx, CC_STAT_TOP);
 	int width = stats.at<int>(idx, CC_STAT_WIDTH);
-	int height = stats.at<int>(idx, CC_STAT_HEIGHT);
+	int height = stats.at<int>(idx, CC_STAT_HEIGHT)*97/100;
+	top = top + height * 3 / 100; 
 
 
 	//rectangle(img_input, Point(left, top), Point(left + width, top + height), Scalar(0, 0, 255), 3);
@@ -80,6 +81,10 @@ void detectKeyboard(Mat& sorce, Mat& destnation, Rect& rect) {
 	Mat realRoi = img_input(roiRect);
 	rect = roiRect;
 	destnation = realRoi.clone();
+
+	//imshow("bin", img_binary);
+	//imshow("ds", destnation);
+
 
 }
 void draw_houghLines(Mat image, Mat& dst, vector<Vec2f> lines, int nline, vector<Point2d>& linePts)
@@ -98,6 +103,7 @@ void draw_houghLines(Mat image, Mat& dst, vector<Vec2f> lines, int nline, vector
 		
 		line(dst, pt + delta, pt - delta, Scalar(0, 255, 0), 1, LINE_AA);		
 	}
+
 	
 }
 
@@ -112,7 +118,7 @@ void detectKeyboard2(Mat& source){
 
 
 
-	GaussianBlur(image, canny, Size(3,3), 2, 2);
+	GaussianBlur(image, canny, Size(7,7), 2, 2);
 	Canny(canny, canny, 125, 350,3);
 
 
