@@ -82,8 +82,8 @@ void detectKeyboard(Mat& sorce, Mat& destnation, Rect& rect) {
 	rect = roiRect;
 	destnation = realRoi.clone();
 
-	imshow("bin", img_binary);
-	imshow("ds", destnation);
+	//imshow("bin", img_binary);
+	//imshow("ds", destnation);
 
 
 }
@@ -103,6 +103,7 @@ void draw_houghLines(Mat image, Mat& dst, vector<Vec2f> lines, int nline, vector
 		
 		line(dst, pt + delta, pt - delta, Scalar(0, 255, 0), 1, LINE_AA);		
 	}
+
 	
 }
 
