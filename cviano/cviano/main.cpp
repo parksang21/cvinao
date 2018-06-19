@@ -9,7 +9,7 @@ int main() {
 	std::vector<kb::Key> keys;
 	cv::Rect keyboard_rect;
 	std::vector <std::pair<int,int>> preNote, output_note;
-	cv::VideoCapture vc("../../sample_image/test3.mov");
+	cv::VideoCapture vc("../../sample_image/test4.mov");
 
 	vc >> frame;
 
@@ -20,6 +20,9 @@ int main() {
 	//획득한 전체영상에서 흰부분 기준으로 건반의 위치에 사각형
 	detectKeyboard(frame, keyborad, keyboard_rect);
 
+	imshow("SDAf", frame);
+	imshow("vv", keyborad);
+	cv::waitKey(0);
 	
 	//detectKeyboard2(frame);
 
@@ -33,6 +36,6 @@ int main() {
 	//cv::waitKey();
 	
 	//도레미파솔의 sens 값을 하드코딩 해보자
-	sihyun(keys, vc,preNote);
+	//sihyun(keys, vc,preNote);
 	return 0;
 }
