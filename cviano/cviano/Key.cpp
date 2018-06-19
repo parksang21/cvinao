@@ -28,7 +28,7 @@ bool kb::Key::detectPress(cv::Mat diffVideo) {
 	unsigned int hitCount = 0; // how many pixels change
 	unsigned int criticalPoint = 0; //if hitCount is bigger than this value, we assume that key is pressed
 
-	criticalPoint = roi.rows * roi.cols /15;
+	criticalPoint = (roi.rows - 70) * (roi.cols-20) / 40;
 	/*
 	std::cout << "W: " << KeyWidth << std::endl;
 	std::cout << "H: " << KeyHeight << std::endl;
@@ -39,8 +39,8 @@ bool kb::Key::detectPress(cv::Mat diffVideo) {
 	//imshow("tesasdfasdf", mask);
 	//imshow("asdfasdf", roi);
 	//cv::waitKey(0);
-	for (unsigned int i = 0; i < this->roi.rows; i++) {
-		for (unsigned int j = 0; j <this->roi.cols; j++) {
+	for (unsigned int i = 0; i < roi.rows-70; i++) {
+		for (unsigned int j = 10; j <roi.cols-10; j++) {
 			if (*roi.ptr<uchar>(j, i) == 255) { hitCount++; //std::cout<<"[" << hitCount<<", "<<note << "]"<<std::endl; 
 			}
 			if (hitCount >= criticalPoint) {  return true; }

@@ -61,7 +61,7 @@ void sihyun(std::vector<kb::Key> keys,	cv::VideoCapture vc, std::vector<std::pai
 		absdiff(grayImg1, grayImg2, diffImg);
 		threshold(diffImg, diffImg, nThreshold, 255, CV_THRESH_BINARY);
 		//resize(diffImg, diffImg, diffImg.size() / 2);
-		//imshow("이전 프레임과 비교", diffImg);
+		imshow("이전 프레임과 비교", diffImg);
 		//cvtColor(backBoard, backBoard, CV_GRAY2BGR);
 	
 		for (int i = 0; i < keys.size(); i++) { //건반의 타건 여부를 체크하는 함수를 건반 인스턴스의 갯수만큼 호출한다.
