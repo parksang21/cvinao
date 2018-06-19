@@ -264,10 +264,13 @@ void setWhiteKeyVector(cv::Mat& source, cv::Mat& roi, std::vector<kb::Key>& keys
 		//cv::imshow("mask " + std::to_string(i), keys[i].getMask());
 	}
 
+	// to show cont
+	/*
 	cv::Mat cont(source);
 
 	cv::drawContours(source, contours, -1, cv::Scalar(255, 255, 0), 3);
 	kb::drawKeys(source, keys);
 	imshow("cont", source);
 	cv::waitKey();
+	*/
 }
