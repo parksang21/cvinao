@@ -69,10 +69,11 @@ void detectKeyboard(Mat& sorce, Mat& destnation, Rect& rect) {
 	int left = stats.at<int>(idx, CC_STAT_LEFT);
 	int top = stats.at<int>(idx, CC_STAT_TOP);
 	int width = stats.at<int>(idx, CC_STAT_WIDTH);
-	int height = stats.at<int>(idx, CC_STAT_HEIGHT);
+	int height = stats.at<int>(idx, CC_STAT_HEIGHT)*97/100;
+	top = top + height * 3 / 100;
 
 
-	rectangle(img_input, Point(left, top), Point(left + width, top + height), Scalar(0, 0, 255), 3);
+	//rectangle(img_input, Point(left, top), Point(left + width, top + height), Scalar(0, 0, 255), 3);
 	//rectangle(img_binary, Point(left, top), Point(left + width, top + height), Scalar(255, 255, 255), 1);
 
 
@@ -112,7 +113,7 @@ void detectKeyboard2(Mat& source){
 
 
 
-	GaussianBlur(image, canny, Size(3,3), 2, 2);
+	GaussianBlur(image, canny, Size(7,7), 2, 2);
 	Canny(canny, canny, 125, 350,3);
 
 
