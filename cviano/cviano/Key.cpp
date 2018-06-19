@@ -53,15 +53,18 @@ bool kb::Key::detectPress(cv::Mat diffVideo) {
 	return false;
 }
 
-cv::Rect kb::Key::getRect() {
+cv::Rect kb::Key::getRect() 
+{
 	return rect;
 }
 
-void kb::Key::setNote(int note) {
+void kb::Key::setNote(int note) 
+{
 	this->note = note;
 }
 
-int kb::Key::getNote() {
+int kb::Key::getNote() 
+{
 	return note;
 }
 
@@ -218,7 +221,8 @@ void kb::drawKeys(cv::Mat& image, std::vector<kb::Key> keys)
 	}
 }
 
-void setWhiteKeyVector(cv::Mat& source, cv::Mat& roi, std::vector<kb::Key>& keys, cv::Rect rect) {
+void setWhiteKeyVector(cv::Mat& source, cv::Mat& roi, std::vector<kb::Key>& keys, cv::Rect rect) 
+{
 
 	cv::Mat image;
 
@@ -264,4 +268,11 @@ void setWhiteKeyVector(cv::Mat& source, cv::Mat& roi, std::vector<kb::Key>& keys
 		keys[i].setORoi(source);
 		keys[i].setMask();
 	}
+
+	cv::Mat cont(source);
+
+	cv::drawContours(source, contours, -1, cv::Scalar(255, 255, 0), 3);
+	kb::drawKeys(source, keys);
+	imshow("cont", source);
+	cv::waitKey();
 }
