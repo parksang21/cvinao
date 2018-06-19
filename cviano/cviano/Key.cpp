@@ -36,14 +36,14 @@ bool kb::Key::detectPress(cv::Mat diffVideo) {
 	*/
 
 	setRoi(diffVideo);
-	imshow("tesasdfasdf", mask);
-	imshow("asdfasdf", roi);
-	cv::waitKey(0);
+	//imshow("tesasdfasdf", mask);
+	//imshow("asdfasdf", roi);
+	//cv::waitKey(0);
 	for (unsigned int i = 0; i < this->roi.rows; i++) {
 		for (unsigned int j = 0; j <this->roi.cols; j++) {
 			if (*roi.ptr<uchar>(j, i) == 255) { hitCount++; //std::cout<<"[" << hitCount<<", "<<note << "]"<<std::endl; 
 			}
-			if (hitCount >= criticalPoint) { return true; }
+			if (hitCount >= criticalPoint) {  return true; }
 		}
 	}
 
