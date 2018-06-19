@@ -8,13 +8,13 @@ kb::Key::Key(cv::Rect& r) {
 
 kb::Key::Key(cv::Mat& src, cv::Rect& r) {
 	rect = r;
-	roi = src(r);
+	oroi = src(r);
 };
 
 kb::Key::Key(cv::Mat& src, cv::Rect& r, std::vector<cv::Point>& c, int music){
 	rect = r;
 	contour = c;
-	roi = src(r);
+	oroi = src(r);
 	key_type = music;
 }
 
@@ -47,10 +47,6 @@ cv::Rect kb::Key::getRect() {
 	return rect;
 }
 
-cv::Mat kb::Key::getMat() {
-	return roi;
-}
-
 void kb::Key::setNote(int note) {
 	this->note = note;
 }
@@ -59,6 +55,53 @@ int kb::Key::getNote() {
 	return note;
 }
 
+std::vector<cv::Point> kb::Key::getContour() 
+{
+	return contour;
+}
+
+void kb::Key::setORoi(cv::Mat source)
+{
+	oroi = source(rect);
+}
+
+void kb::Key::setORoi(cv::Mat source, cv::Rect rect_roi)
+{
+	oroi = source(rect_roi);
+}
+
+cv::Mat kb::Key::getORoi()
+{
+	return oroi;
+}
+
+void kb::Key::setRoi(cv::Mat source)
+{
+	roi = source(rect) & mask;
+}
+
+cv::Mat kb::Key::getRoi() 
+{
+	return roi;
+}
+
+void kb::Key::setMask()
+{
+	cvtColor(oroi.clone(), mask, CV_BGR2GRAY);
+	mask -= 255;
+	std::vector<std::vector<cv::Point>> adjust_conts;
+	std::vector<cv::Point> adjust_cont;
+	for (int i = 0; i < contour.size(); i++)
+	{
+		adjust_cont.push_back(contour[i] - rect.tl());
+	}
+	adjust_conts.push_back(adjust_cont);
+	cv::drawContours(mask, adjust_conts, -1, cv::Scalar(255), CV_FILLED);
+}
+
+
+cv::Mat kb::Key::getMask(){	return mask; }
+
 
 // ==================================================================================
 //			클래스 외 function
@@ -66,8 +109,10 @@ int kb::Key::getNote() {
 
 void kb::mapKeys(cv::Mat& source, cv::Mat& image, std::vector<std::vector<cv::Point>>& contours, std::vector<kb::Key>& keys, cv::Rect srect)
 {
+	// to calculate the contour area's average
 	int cont_sum = 0, avg_cont = 0;
 
+	// to calculate the sum of contour area
 	for (std::vector<std::vector<cv::Point>>::iterator iter = contours.begin();
 		iter < contours.end();
 		iter++)
@@ -81,8 +126,11 @@ void kb::mapKeys(cv::Mat& source, cv::Mat& image, std::vector<std::vector<cv::Po
 		}
 	}
 
+	// calculate the average of contour area.
 	avg_cont = cont_sum / contours.size();
 
+
+	// delete the unwanted contours
 	for (std::vector<std::vector<cv::Point>>::iterator iter = contours.begin();
 		iter < contours.end();
 		iter++)
@@ -94,10 +142,11 @@ void kb::mapKeys(cv::Mat& source, cv::Mat& image, std::vector<std::vector<cv::Po
 		}
 	}
 	
+	// to adjust to the origin image
 	cv::Point origin = srect.tl();
-	for (std::vector<std::vector<cv::Point>>::iterator iter = contours.begin(); 
-		iter < contours.end(); 
-		iter++) 
+	for (std::vector<std::vector<cv::Point>>::iterator iter = contours.begin();
+		iter < contours.end();
+		iter++)
 	{
 		cv::Rect r = boundingRect(*iter);
 		r += origin;
@@ -111,56 +160,9 @@ void kb::mapKeys(cv::Mat& source, cv::Mat& image, std::vector<std::vector<cv::Po
 		keys.push_back(key);
 	}
 
-	int image_size = image.size().area();
-	int criteria = image_size / (int)keys.size();
-
-	cv::Mat test(image.size(), CV_8UC3);
-	cv::drawContours(source, contours, -1, cv::Scalar(0, 0, 255));
-
-	cv::imshow("test", source);
-	cv::waitKey();
-
-	// 작은 것들 삭제하기
-
-	/*
-	for (std::vector<kb::Key>::iterator iter = keys.begin(); iter < keys.end(); iter++) 
-	{
-		cv::Rect r = iter->getRect();
-		if (r.area() < criteria ||
-			r.area() > image_size / 2)
-		{
-			keys.erase(iter);
-			iter--;
-		}
-	}
-	*/
-
-
-	// key 값 정제하기
+	// key 값 소팅
 	std::sort(keys.begin(), keys.end(), kb::compareKeys);
-	
-	if (keys.size() > 22)
-	{
-		int sum = 0;
 
-		for (std::vector<kb::Key>::iterator iter = keys.begin(); iter < keys.end(); iter++)
-		{
-			sum += iter->getRect().width + iter->getRect().height;
-		}
-
-		int average = sum / (int) keys.size();
-
-		for (std::vector<kb::Key>::iterator iter = keys.begin(); iter < keys.end(); iter++)
-		{
-			cv::Rect r = iter->getRect();
-			if (r.width + r.height < average)
-			{
-				keys.erase(iter);
-				iter--;
-				continue;
-			}
-		}
-	}
 }
 
 
@@ -212,7 +214,10 @@ void setWhiteKeyVector(cv::Mat& source, cv::Mat& roi, std::vector<kb::Key>& keys
 	adaptiveThreshold(image, binary_adaptive, 255, cv::ADAPTIVE_THRESH_MEAN_C, cv::THRESH_BINARY, 21, 10);
 
 	binary_adaptive = 255 - binary_adaptive;
-	imshow("binary", binary_adaptive);
+
+	// display :: binary_adaptive image;
+	// imshow("binary", binary_adaptive);
+
 	GaussianBlur(binary_adaptive, binary_adaptive, cv::Size(), 2, 2);
 	Canny(binary_adaptive, canny, 125, 350);
 
@@ -220,7 +225,9 @@ void setWhiteKeyVector(cv::Mat& source, cv::Mat& roi, std::vector<kb::Key>& keys
 	cv::Mat morph;
 	morphologyEx(canny, morph, CV_MOP_CLOSE, kernel);
 
-	imshow("morph", morph);
+
+	// display :: morphed image
+	// imshow("morph", morph);
 
 
 	std::vector<std::vector<cv::Point>> contours;
@@ -237,4 +244,23 @@ void setWhiteKeyVector(cv::Mat& source, cv::Mat& roi, std::vector<kb::Key>& keys
 
 	// 흑건까지 찾은 뒤에 해야할 일.
 	kb::setMusicalNote(keys);
+
+	cv::Mat test_roi(source.clone());
+	testforRoiMask(test_roi, keys);
+	cvtColor(test_roi, test_roi, CV_BGR2GRAY);
+
+	keys[0].setRoi(test_roi);
+	cv::imshow("getmask", keys[0].getRoi());
+}
+
+
+void testforRoiMask(cv::Mat source, std::vector<kb::Key>& keys)
+{
+	for (int i = 0; i < keys.size(); i++)
+	{
+		keys[i].setORoi(source);
+		//cv::imshow(std::to_string(i), keys[i].getRoi());
+		keys[i].setMask();
+		//cv::imshow("mask " + std::to_string(i), keys[i].getMask());
+	}
 }

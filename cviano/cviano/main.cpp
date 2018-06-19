@@ -13,6 +13,8 @@ int main() {
 
 	vc >> frame;
 
+	cv::resize(frame, frame, cv::Size(1920, 1080));
+
 	//sihyun();
 
 	//획득한 전체영상에서 흰부분 기준으로 건반의 위치에 사각형
