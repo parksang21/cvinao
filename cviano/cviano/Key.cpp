@@ -40,8 +40,8 @@ bool kb::Key::detectPress(cv::Mat diffVideo) {
 	std::cout << "H: " << KeyHeight << std::endl;
 	std::cout << "C: " << criticalPoint << std::endl;
 	*/
-	for (unsigned int i = TopLeftX; i < TopLeftX+KeyWidth; i++) {
-		for (unsigned int j = TopLeftY; j <TopLeftY+ KeyHeight-60; j++) {
+	for (unsigned int i = 0; i < this->roi.rows; i++) {
+		for (unsigned int j = 0; j <this->roi.cols; j++) {
 			if (*diffVideo.ptr<uchar>(j, i) == 255) { hitCount++; //std::cout<<"[" << hitCount<<", "<<note << "]"<<std::endl; 
 			}
 			if (hitCount >= criticalPoint) { return true; }

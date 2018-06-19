@@ -30,7 +30,7 @@ int main() {
 	//cv::imshow("frame", frame);
 	//cv::waitKey();
 	
-	
+	//도레미파솔의 sens 값을 하드코딩 해보자
 	sihyun(keys, vc,preNote);
 	return 0;
 }
