@@ -27,15 +27,24 @@ namespace kb{
 		int note = -1;
 		int key_type;
 		cv::Rect rect;	// ROI 영역을 만들기 위한 rect 객체
+		cv::Mat oroi, roi, mask;
 		std::vector<cv::Point> contour;
 		int sens = 1;
 	public:
-		cv::Mat roi;
 		bool detectPress(cv::Mat diffVideo);
 		cv::Rect getRect();
 		cv::Mat getMat();
 		void setNote(int note);
 		int getNote();
+		std::vector<cv::Point> getContour();
+		void setORoi(cv::Mat source);
+		void setORoi(cv::Mat source, cv::Rect rect_roi);
+		cv::Mat getORoi();
+		void setMask();
+		cv::Mat getMask();
+
+		void setRoi(cv::Mat cource);
+		cv::Mat getRoi();
 
 		Key();
 		Key(cv::Rect& roi);
@@ -54,3 +63,4 @@ namespace kb{
 	
 void setWhiteKeyVector(cv::Mat& src, cv::Mat& dst, std::vector<kb::Key>& keys, cv::Rect rect);
 void sihyun(std::vector<kb::Key>, cv::VideoCapture,std::vector<std::pair<int,int>>&);
+void testforRoiMask(cv::Mat source, std::vector<kb::Key>& keys);
