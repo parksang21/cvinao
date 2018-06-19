@@ -81,7 +81,7 @@ void sihyun(std::vector<kb::Key> keys,	cv::VideoCapture vc, std::vector<std::pai
 		if (chKey == 27) {
 			break;
 		}
-		cout << NoFrame << endl;
+		//cout << NoFrame << endl;
 		NoFrame++;
 	}
 	for (int i = 0; i < preNote.size(); i++) {
