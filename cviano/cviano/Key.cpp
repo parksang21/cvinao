@@ -28,7 +28,7 @@ bool kb::Key::detectPress(cv::Mat diffVideo) {
 	unsigned int hitCount = 0; // how many pixels change
 	unsigned int criticalPoint = 0; //if hitCount is bigger than this value, we assume that key is pressed
 
-	criticalPoint = (roi.rows - 70) * (roi.cols-20) / 40;
+	criticalPoint = (roi.rows - 70) * (roi.cols-20) / 15;
 	/*
 	std::cout << "W: " << KeyWidth << std::endl;
 	std::cout << "H: " << KeyHeight << std::endl;
