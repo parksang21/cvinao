@@ -9,7 +9,7 @@ int main() {
 	std::vector<kb::Key> keys;
 	cv::Rect keyboard_rect;
 	std::vector <std::pair<int,int>> preNote, output_note;
-	cv::VideoCapture vc("../../sample_image/test3.mov");
+	cv::VideoCapture vc("../../sample_image/front_desk1.mov");
 
 	vc >> frame;
 
