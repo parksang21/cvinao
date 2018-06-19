@@ -28,7 +28,7 @@ bool kb::Key::detectPress(cv::Mat diffVideo) {
 	unsigned int hitCount = 0; // how many pixels change
 	unsigned int criticalPoint = 0; //if hitCount is bigger than this value, we assume that key is pressed
 
-	criticalPoint = roi.rows * roi.cols / 40;
+	criticalPoint = (roi.rows - 70) * (roi.cols-20) / 40;
 	/*
 	std::cout << "W: " << KeyWidth << std::endl;
 	std::cout << "H: " << KeyHeight << std::endl;
@@ -39,17 +39,14 @@ bool kb::Key::detectPress(cv::Mat diffVideo) {
 	//imshow("tesasdfasdf", mask);
 	//imshow("asdfasdf", roi);
 	//cv::waitKey(0);
-
-	for (unsigned int i = 0; i < this->roi.rows; i++) {
-		for (unsigned int j = 0; j <this->roi.cols; j++) {
-			if (*roi.ptr<uchar>(j, i) == 255) { 
-				hitCount++; //std::cout<<"[" << hitCount<<", "<<note << "]"<<std::endl; 
+	for (unsigned int i = 0; i < roi.rows-70; i++) {
+		for (unsigned int j = 10; j <roi.cols-10; j++) {
+			if (*roi.ptr<uchar>(j, i) == 255) { hitCount++; //std::cout<<"[" << hitCount<<", "<<note << "]"<<std::endl; 
 			}
-			if (hitCount >= 200) {
-				return true; 
-			}
+			if (hitCount >= criticalPoint) {  return true; }
 		}
 	}
+
 	return false;
 }
 
@@ -175,11 +172,7 @@ void kb::mapKeys(cv::Mat& source, cv::Mat& image, std::vector<std::vector<cv::Po
 
 	// key 값 소팅
 	std::sort(keys.begin(), keys.end(), kb::compareKeys);
-	cv::Mat testforcont = image.clone();
-	cv::drawContours(testforcont, contours, -1, cv::Scalar(255, 255, 0), 5);
 
-	imshow("test", testforcont);
-	cv::waitKey();
 }
 
 
@@ -266,7 +259,9 @@ void setWhiteKeyVector(cv::Mat& source, cv::Mat& roi, std::vector<kb::Key>& keys
 	for (int i = 0; i < keys.size(); i++)
 	{
 		keys[i].setORoi(source);
+		//cv::imshow(std::to_string(i), keys[i].getRoi());
 		keys[i].setMask();
+		//cv::imshow("mask " + std::to_string(i), keys[i].getMask());
 	}
 
 	cv::Mat cont(source);

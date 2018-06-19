@@ -72,7 +72,7 @@ void detectKeyboard(Mat& sorce, Mat& destnation, Rect& rect) {
 	int height = stats.at<int>(idx, CC_STAT_HEIGHT);
 
 
-	rectangle(img_input, Point(left, top), Point(left + width, top + height), Scalar(0, 0, 255), 3);
+	//rectangle(img_input, Point(left, top), Point(left + width, top + height), Scalar(0, 0, 255), 3);
 	//rectangle(img_binary, Point(left, top), Point(left + width, top + height), Scalar(255, 255, 255), 1);
 
 
