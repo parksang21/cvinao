@@ -31,6 +31,7 @@ namespace kb{
 		std::vector<cv::Point> contour;
 		int sens = 1;
 	public:
+		bool authority(cv::Mat diffVideo);
 		bool detectPress(cv::Mat diffVideo);
 		cv::Rect getRect();
 		cv::Mat getMat();

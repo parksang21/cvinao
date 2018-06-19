@@ -16,7 +16,7 @@ void sihyun(std::vector<kb::Key> keys,	cv::VideoCapture vc, std::vector<std::pai
 {	
 
 	Mat bkgImg, ycrvb1, ycrvb2, hand, grayImg1, grayImg2, diffImg, frame1, frame2;
-
+	vector<int> authority;
 	vc >> bkgImg; //get first frame
 	cvtColor(bkgImg, grayImg2, CV_BGR2GRAY);
 	cvtColor(bkgImg, bkgImg, CV_BGR2GRAY);
@@ -54,6 +54,10 @@ void sihyun(std::vector<kb::Key> keys,	cv::VideoCapture vc, std::vector<std::pai
 		cvtColor(frame1, grayImg1, CV_BGR2GRAY);
 		cvtColor(frame1, ycrvb1, CV_BGR2YCrCb);
 		inRange(ycrvb1, Scalar(0, 138, 79), Scalar(255, 162, 121), ycrvb1);
+		for (int i = 0; i < keys.size(); i++) { //건반의 타건 여부를 체크하는 함수를 건반 인스턴스의 갯수만큼 호출한다.
+			if (keys[i].detectPress(ycrvb1))authority.push_back(i);
+		}
+		//imshow("hand", ycrvb1);
 		removeHand(bkgImg, diffImg, backBoard, ycrvb1);
 		absdiff(grayImg1, bkgImg, diffImg);
 
@@ -63,8 +67,9 @@ void sihyun(std::vector<kb::Key> keys,	cv::VideoCapture vc, std::vector<std::pai
 		//resize(diffImg, diffImg, diffImg.size() / 2);
 		
 		//cvtColor(backBoard, backBoard, CV_GRAY2BGR);
-	
-		for (int i = 0; i < keys.size(); i++) { //건반의 타건 여부를 체크하는 함수를 건반 인스턴스의 갯수만큼 호출한다.
+
+		for (int i :authority) { //건반의 타건 여부를 체크하는 함수를 건반 인스턴스의 갯수만큼 호출한다.
+			cout << ">>"<<i << "<<" << endl;
 			if (keys[i].detectPress(diffImg))preNote.push_back(make_pair(keys[i].getNote(), NoFrame));
 		}
 		
@@ -91,7 +96,7 @@ void sihyun(std::vector<kb::Key> keys,	cv::VideoCapture vc, std::vector<std::pai
 			break;
 		}
 		//cout << NoFrame << endl;
-		cout << NoFrame << endl;
+;
 		NoFrame++;
 
 	}

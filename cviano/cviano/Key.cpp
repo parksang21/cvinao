@@ -28,22 +28,41 @@ bool kb::Key::detectPress(cv::Mat diffVideo) {
 	unsigned int hitCount = 0; // how many pixels change
 	unsigned int criticalPoint = 0; //if hitCount is bigger than this value, we assume that key is pressed
 
-	criticalPoint = (roi.rows - 70) * (roi.cols-20) / 15;
-	/*
-	std::cout << "W: " << KeyWidth << std::endl;
-	std::cout << "H: " << KeyHeight << std::endl;
-	std::cout << "C: " << criticalPoint << std::endl;
-	*/
+	criticalPoint = (roi.rows - 100) * (roi.cols-20) / 30;
+	//손을 제외하기 전에 detect된 건반만 실제 건반이 눌렸을 때의 detect를 돌릴 권한을 가짐
 
 	setRoi(diffVideo);
-	//imshow("tesasdfasdf", mask);
-	//imshow("asdfasdf", roi);
-	//cv::waitKey(0);
-	for (unsigned int i = 0; i < roi.rows-70; i++) {
-		for (unsigned int j = 10; j <roi.cols-10; j++) {
+
+	for (unsigned int i = 0; i < roi.rows; i++) {
+		for (unsigned int j = 10; j <roi.cols; j++) {
 			if (*roi.ptr<uchar>(j, i) == 255) { hitCount++; //std::cout<<"[" << hitCount<<", "<<note << "]"<<std::endl; 
 			}
 			if (hitCount >= criticalPoint) {  return true; }
+		}
+	}
+
+	return false;
+}
+
+bool kb::Key::authority(cv::Mat diffVideo) {
+	unsigned int hitCount = 0; // how many pixels change
+	unsigned int criticalPoint = 0; //if hitCount is bigger than this value, we assume that key is pressed
+
+	unsigned int X = this->getRect.tl().x;
+	unsigned int Y = this->getRect.tl().Y;
+
+	unsigned int RWidth = this->getRect.width();
+	unsigned int RHeight = this->getRect.height();
+
+	criticalPoint = roi.rows * roi.cols /10;
+	//손을 제외하기 전에 detect된 건반만 실제 건반이 눌렸을 때의 detect를 돌릴 권한을 가짐
+
+	for (unsigned int i = Y; i < Y+RHeight; i++) {
+		for (unsigned int j = X; j <X+RWidth; j++) {
+			if (*roi.ptr<uchar>(j, i) == 255) {
+				hitCount++;// std::cout<<"[" << hitCount<<", "<<note << "]"<<std::endl; 
+			}
+			if (hitCount >= criticalPoint) { return true; }
 		}
 	}
 
