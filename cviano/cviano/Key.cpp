@@ -28,7 +28,7 @@ bool kb::Key::detectPress(cv::Mat diffVideo) {
 	unsigned int hitCount = 0; // how many pixels change
 	unsigned int criticalPoint = 0; //if hitCount is bigger than this value, we assume that key is pressed
 
-	criticalPoint = (roi.rows - 70) * (roi.cols-20) / 40;
+	criticalPoint = (roi.rows - 70) * (roi.cols-20) / 50;
 	/*
 	std::cout << "W: " << KeyWidth << std::endl;
 	std::cout << "H: " << KeyHeight << std::endl;
@@ -39,12 +39,18 @@ bool kb::Key::detectPress(cv::Mat diffVideo) {
 	//imshow("tesasdfasdf", mask);
 	//imshow("asdfasdf", roi);
 	//cv::waitKey(0);
-	for (unsigned int i = 0; i < roi.rows-70; i++) {
-		for (unsigned int j = 10; j <roi.cols-10; j++) {
-			if (*roi.ptr<uchar>(j, i) == 255) { hitCount++; //std::cout<<"[" << hitCount<<", "<<note << "]"<<std::endl; 
+	for (unsigned int i = 0; i < roi.rows; i++) {
+		for (unsigned int j = 10; j <roi.cols; j++) {
+			if (*roi.ptr<uchar>(j, i) == 255) { 
+				hitCount++; 
+				//std::cout<<"[" << hitCount<<", "<<note << "]"<<std::endl; 
 			}
-			if (hitCount >= criticalPoint) {  return true; }
+			
 		}
+	}
+
+	if (hitCount >= 1) {
+		return true;
 	}
 
 	return false;
@@ -87,7 +93,15 @@ cv::Mat kb::Key::getORoi()
 
 void kb::Key::setRoi(cv::Mat source)
 {
-	roi = source(rect) & mask;
+	cvtColor(oroi.clone(), roi, CV_BGR2GRAY);
+	roi -= 255;
+	cv::Mat temp = source(rect);
+	for(int i =0; i < roi.rows; i++)
+		for (int j = 0; j < roi.cols; j++)
+		{
+			uchar& pt = *mask.ptr<uchar>(i, j);
+			if (pt == 255) *roi.ptr<uchar>(i, j) = *temp.ptr<uchar>(i,j);
+		}
 }
 
 cv::Mat kb::Key::getRoi() 
@@ -107,11 +121,11 @@ void kb::Key::setMask()
 	}
 	adjust_conts.push_back(adjust_cont);
 	cv::drawContours(mask, adjust_conts, -1, cv::Scalar(255), CV_FILLED);
+	cv::drawContours(mask, adjust_conts, -1, cv::Scalar(0), 3);
 }
 
 
 cv::Mat kb::Key::getMask(){	return mask; }
-
 
 // ==================================================================================
 //			클래스 외 function
@@ -159,6 +173,7 @@ void kb::mapKeys(cv::Mat& source, cv::Mat& image, std::vector<std::vector<cv::Po
 		iter++)
 	{
 		cv::Rect r = boundingRect(*iter);
+		r.height *= 0.95;
 		r += origin;
 
 		for (std::vector<cv::Point>::iterator point = iter->begin();
@@ -252,7 +267,6 @@ void setWhiteKeyVector(cv::Mat& source, cv::Mat& roi, std::vector<kb::Key>& keys
 
 	kb::mapKeys(source, image, contours, keys, rect);
 
-
 	// 흑건까지 찾은 뒤에 해야할 일.
 	kb::setMusicalNote(keys);
 
@@ -263,6 +277,9 @@ void setWhiteKeyVector(cv::Mat& source, cv::Mat& roi, std::vector<kb::Key>& keys
 		keys[i].setMask();
 		//cv::imshow("mask " + std::to_string(i), keys[i].getMask());
 	}
+
+
+
 
 	// to show cont
 	/*

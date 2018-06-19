@@ -6,7 +6,9 @@
 #define WHITE_KEY 0
 #define BLACK_KEY 1
 
+
 namespace kb{
+
 
 	enum class NOTE
 	{
@@ -33,7 +35,6 @@ namespace kb{
 	public:
 		bool detectPress(cv::Mat diffVideo);
 		cv::Rect getRect();
-		cv::Mat getMat();
 		void setNote(int note);
 		int getNote();
 		std::vector<cv::Point> getContour();

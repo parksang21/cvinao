@@ -10,11 +10,12 @@ int main() {
 	cv::Rect keyboard_rect;
 	std::vector <std::pair<int,int>> preNote, output_note;
 
+	std::string test3 = "../../sample_image/test3.mov";
 	std::string test4 = "../../sample_image/test4.mov";
 	std::string test5 = "../../sample_image/test5.mov";
 	std::string test6 = "../../sample_image/test6.mov";
 	std::string test7 = "../../sample_image/test7.mov";
-	cv::VideoCapture vc(test4);
+	cv::VideoCapture vc(test3);
 
 	vc >> frame;
 

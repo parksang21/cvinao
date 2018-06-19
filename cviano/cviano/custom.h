@@ -12,6 +12,7 @@
 
 #define PrintIVector(c, vector) {cout << endl << c << endl; for(int i : vector) cout << i << endl;}
 
+
 namespace cust
 {
 	template<typename T>
