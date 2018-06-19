@@ -9,23 +9,23 @@ using namespace cv;
 
 void detectKeyboard(Mat& sorce, Mat& destnation, Rect& rect) {
 
-	int LowH = 0;
-	int HighH = 120;
+	int LowH = 80;
+	int HighH = 130;
 
 	int LowS = 0;
-	int HighS = 85;
+	int HighS = 150;
 
-	int LowV = 170;
+	int LowV = 150;
 	int HighV = 255;
 	Mat img_input, img_hsv, img_binary;
 
-	int LowR = 110;
+	int LowR = 150;
 	int HighR = 255;
 
-	int LowG = 110;
+	int LowG = 150;
 	int HighG = 255;
 
-	int LowB = 110;
+	int LowB = 150;
 	int HighB = 255;
 
 
@@ -36,8 +36,8 @@ void detectKeyboard(Mat& sorce, Mat& destnation, Rect& rect) {
 	cvtColor(img_input, img_hsv, COLOR_BGR2HSV);
 
 	//지정한 HSV 범위를 이용하여 영상을 이진화
-	inRange(img_hsv, Scalar(LowH, LowS, LowV), Scalar(HighH, HighS, HighV), img_binary);
-	//inRange(img_input, Scalar(LowR, LowG, LowB), Scalar(HighR, HighG, HighB), img_binary);
+	//inRange(img_hsv, Scalar(LowH, LowS, LowV), Scalar(HighH, HighS, HighV), img_binary);
+	inRange(img_input, Scalar(LowR, LowG, LowB), Scalar(HighR, HighG, HighB), img_binary);
 
 	//morphological opening 작은 점들을 제거 
 	erode(img_binary, img_binary, getStructuringElement(MORPH_ELLIPSE, Size(5, 5)), Point(-1, -1), 2);
@@ -72,7 +72,7 @@ void detectKeyboard(Mat& sorce, Mat& destnation, Rect& rect) {
 	int height = stats.at<int>(idx, CC_STAT_HEIGHT);
 
 
-	//rectangle(img_input, Point(left, top), Point(left + width, top + height), Scalar(0, 0, 255), 3);
+	rectangle(img_input, Point(left, top), Point(left + width, top + height), Scalar(0, 0, 255), 3);
 	//rectangle(img_binary, Point(left, top), Point(left + width, top + height), Scalar(255, 255, 255), 1);
 
 
