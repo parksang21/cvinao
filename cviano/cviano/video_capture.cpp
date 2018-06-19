@@ -14,6 +14,7 @@ int main2() {
 	
 	cv::Rect  keyboard_rect;
 
+
 	stream1.set(CV_CAP_PROP_FRAME_WIDTH, 1280);
 	stream1.set(CV_CAP_PROP_FRAME_HEIGHT, 720);
 
