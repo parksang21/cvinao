@@ -9,26 +9,35 @@ void makeNote(std::vector<std::pair<int, int>>& preNote, std::vector<std::pair<i
 	for (int i = 0; i < preNote.size(); i++) {
 		for (int j = 0; j < count.size(); j++) {
 			if (preNote[i].first == count[j].first) {
-				count[j].second+=1;
-				std::cout << "[" << count[j].first << ", " << count[j].second << "]" << std::endl;
+				count[j].second += 1;
 				flag = 1;
 			}
-			if ((preNote[i + 2].second - preNote[i + 1].second)> 8&& count[j].second>=4) {
-				output_note.push_back(std::make_pair(preNote[i].first, 0.5*(count[j].second / 4)));
-				count[j].second = 0;
+			if ((preNote[i + 2].second - preNote[i + 1].second) > 2 && count[j].second >= 5) {
+				output_note.push_back(std::make_pair(preNote[i].first, 0.5*(count[j].second / 5)));
 				std::vector<std::pair<int, int>> count;
 			}
 		}
+
 		if (flag == 0) {
+			for (int l = 0; l < count.size(); l++) {
+				if (count[l].second >= 5) {
+					output_note.push_back(std::make_pair(count[l].first, 0.5*(count[l].second / 5)));
+					std::vector<std::pair<int, int>> count;
+				}
+
+			}
 			count.push_back(std::make_pair(preNote[i].first, 1));
 		}
 		flag = 0;
-		if((i==preNote.size()-1))
+		if ((i == preNote.size() - 1)) {
 			for (int k = 0; k < count.size(); k++) {
-				if (count[k].second >= 4) {
-					output_note.push_back(std::make_pair(preNote[i].first, 0.5*(count[k].second / 4)));
+				if (count[k].second >= 5) {
+					output_note.push_back(std::make_pair(count[k].first, 0.5*(count[k].second / 5)));
+					std::vector<std::pair<int, int>> count;
 				}
 			}
+		}
+
 	}
 }
 
@@ -78,12 +87,12 @@ int main() {
 	//도레미파솔의 sens 값을 하드코딩 해보자
 	sihyun(keys, vc,preNote);
 	makeNote(preNote, output_note);
-	std::cout << "===============================================" << std::endl;
+	std::cout << "====================pre===========================" << std::endl;
 	for (int i = 0; i < preNote.size(); i++) {
 		std::cout << "[" << preNote[i].first << ", " << preNote[i].second << "]" << std::endl;
 	}
 	
-	std::cout << "===============================================" << std::endl;
+	std::cout << "=====================out==========================" << std::endl;
 	for (int i = 0; i < output_note.size(); i++) {
 		std::cout << "[" << output_note[i].first << ", " << output_note[i].second << "]" << std::endl;
 	}
