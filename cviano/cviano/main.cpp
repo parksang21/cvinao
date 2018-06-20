@@ -2,15 +2,6 @@
 #include "custom.h"
 #include "Key.h"
 
-#include <queue>
-
-int sumPair(std::pair<int, int> pairs[])
-{
-	int sum = 0;
-	for (int i = 0; i < 4; i++) sum += pairs[i].first;
-	return sum;
-}
-
 void makeNote(std::vector<std::pair<int, int>>& preNote, std::vector<std::pair<int, float>>& output_note) {
 
 	std::pair<int, int> start(0, 0), end(0, 0);
