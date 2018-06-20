@@ -53,13 +53,13 @@ void sihyun(std::vector<kb::Key> keys,	cv::VideoCapture vc, std::vector<std::pai
 		cvtColor(frame1, grayImg1, CV_BGR2GRAY);
 		cvtColor(frame1, ycrvb1, CV_BGR2YCrCb);
 		inRange(ycrvb1, Scalar(0, 138, 79), Scalar(255, 162, 121), ycrvb1);
-		dilate(ycrvb1, ycrvb1, getStructuringElement(MORPH_ELLIPSE, Size(7, 7)), Point(-1, -1), 10);
+		dilate(ycrvb1, ycrvb1, getStructuringElement(MORPH_ELLIPSE, Size(5, 5)), Point(-1, -1), 19);
 
 		absdiff(grayImg1, bkgImg, diffImg);
 		threshold(diffImg, diffImg, nThreshold, 255, CV_THRESH_BINARY);
 		Mat backBoard(bkgImg.size(), bkgImg.depth(), Scalar(0));
 		removeHand(bkgImg, diffImg, backBoard, ycrvb1);
-		cv::imshow("back", backBoard);
+		//cv::imshow("back", backBoard);
 
 		absdiff(grayImg1, grayImg2, diffImg);
 	

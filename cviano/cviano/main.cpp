@@ -15,7 +15,7 @@ int main() {
 	std::string test5 = "../../sample_image/test5.mov";
 	std::string test6 = "../../sample_image/test6.mov";
 	std::string test7 = "../../sample_image/test7.mov";
-	cv::VideoCapture vc(test3);
+	cv::VideoCapture vc(test4);
 
 	vc >> frame;
 
