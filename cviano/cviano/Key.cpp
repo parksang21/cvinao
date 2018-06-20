@@ -275,6 +275,6 @@ void setWhiteKeyVector(cv::Mat& source, cv::Mat& roi, std::vector<kb::Key>& keys
 	cv::drawContours(source, contours, -1, cv::Scalar(255, 255, 0), 3);
 	kb::drawKeys(source, keys);
 	imshow("cont", source);
-	cv::waitKey();
+	//cv::waitKey();
 	
 }

@@ -4,7 +4,7 @@
 using namespace cv;
 using namespace std;
 
-void removeHand(Mat bkgImg, Mat binaryImg, Mat& grayImage, Mat hand) {
+void removeHand(Mat binaryImg, Mat& grayImage, Mat hand) {
 	for (int i = 0; i < binaryImg.rows; i++) {
 		for (int j = 0; j < binaryImg.cols; j++) {
 			if (*binaryImg.ptr<uchar>(i, j) == 255 && *hand.ptr<uchar>(i, j) != 255) *grayImage.ptr<uchar>(i, j) = 255;
@@ -15,10 +15,10 @@ void removeHand(Mat bkgImg, Mat binaryImg, Mat& grayImage, Mat hand) {
 void sihyun(std::vector<kb::Key> keys,	cv::VideoCapture vc, std::vector<std::pair<int, int>>& preNote)
 {	
 
-	Mat bkgImg, ycrvb1, ycrvb2, hand, grayImg1, grayImg2, diffImg, frame1, frame2;
+	Mat bkgImg, ycrvb1, hand, grayImg1, diffImg, frame1;
 
 	vc >> bkgImg; //get first frame
-	cvtColor(bkgImg, grayImg2, CV_BGR2GRAY);
+
 	cvtColor(bkgImg, bkgImg, CV_BGR2GRAY);
 
 	int nThreshold = 50;
@@ -35,10 +35,10 @@ void sihyun(std::vector<kb::Key> keys,	cv::VideoCapture vc, std::vector<std::pai
 		absdiff(grayImg1, bkgImg, diffImg);
 		threshold(diffImg, diffImg, nThreshold, 255, CV_THRESH_BINARY);
 		Mat backBoard(bkgImg.size(), bkgImg.depth(), Scalar(0));
-		removeHand(bkgImg, diffImg, backBoard, ycrvb1);
+		removeHand(diffImg, backBoard, ycrvb1);
 		//cv::imshow("back", backBoard);
 
-		absdiff(grayImg1, grayImg2, diffImg);
+	//	absdiff(grayImg1, grayImg2, diffImg);
 	
 		//resize(diffImg, diffImg, diffImg.size() / 2);
 		
@@ -55,7 +55,7 @@ void sihyun(std::vector<kb::Key> keys,	cv::VideoCapture vc, std::vector<std::pai
 		cv::drawContours(diffImg, adjust_conts, -1, cv::Scalar(255), 3);
 		imshow("vide", diffImg);
 		*/
-
+		/*
 		for (int i = 0; i < keys.size(); i++)
 		{
 			cv::namedWindow("roi" + std::to_string(i));
@@ -63,16 +63,16 @@ void sihyun(std::vector<kb::Key> keys,	cv::VideoCapture vc, std::vector<std::pai
 
 		}
 
-		
+		*/
 		//건반의 타건 여부를 체크하는 함수를 건반 인스턴스의 갯수만큼 호출한다.
 		for (int i = 0; i < keys.size(); i++) 
 		{
 			if (keys[i].detectPress(backBoard))
 			{
 				preNote.push_back(make_pair(keys[i].getNote(), NoFrame));
-				cv::rectangle(backBoard, keys[i].getRect(), cv::Scalar(255, 255, 255), 3);
+				//cv::rectangle(backBoard, keys[i].getRect(), cv::Scalar(255, 255, 255), 3);
 			}
-			imshow("roi" + std::to_string(i), keys[i].getRoi());
+			//imshow("roi" + std::to_string(i), keys[i].getRoi());
 		}
 		
 		/*
@@ -119,9 +119,7 @@ void sihyun(std::vector<kb::Key> keys,	cv::VideoCapture vc, std::vector<std::pai
 		if (chKey == 27) {
 			break;
 		}
-		cout << NoFrame << endl;
+		if(NoFrame%100==0)	cout << NoFrame << endl;
 		NoFrame++;
 	}
-	
-	waitKey();
 }

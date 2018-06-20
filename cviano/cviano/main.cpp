@@ -5,21 +5,30 @@
 void makeNote(std::vector<std::pair<int, int>>& preNote, std::vector<std::pair<int, float>>& output_note) {
 	std::vector<std::pair<int, int>> count;
 	size_t flag = 0;
+
 	for (int i = 0; i < preNote.size(); i++) {
 		for (int j = 0; j < count.size(); j++) {
 			if (preNote[i].first == count[j].first) {
 				count[j].second+=1;
+				std::cout << "[" << count[j].first << ", " << count[j].second << "]" << std::endl;
 				flag = 1;
-				if (((preNote[i + 1].second - preNote[i + 2].second)> 7)&&count[i].second>=4) {
-					output_note.push_back(std::make_pair(preNote[i].first, 0.5*(count[j].second / 4)));
-					count.clear();
-				}
+			}
+			if ((preNote[i + 2].second - preNote[i + 1].second)> 8&& count[j].second>=4) {
+				output_note.push_back(std::make_pair(preNote[i].first, 0.5*(count[j].second / 4)));
+				count[j].second = 0;
+				std::vector<std::pair<int, int>> count;
 			}
 		}
 		if (flag == 0) {
 			count.push_back(std::make_pair(preNote[i].first, 1));
-			flag = 0;
 		}
+		flag = 0;
+		if((i==preNote.size()-1))
+			for (int k = 0; k < count.size(); k++) {
+				if (count[k].second >= 4) {
+					output_note.push_back(std::make_pair(preNote[i].first, 0.5*(count[k].second / 4)));
+				}
+			}
 	}
 }
 
@@ -37,7 +46,7 @@ int main() {
 	std::string test5 = "../../sample_image/test5.mov";
 	std::string test6 = "../../sample_image/test6.mov";
 	std::string test7 = "../../sample_image/test7.mov";
-	cv::VideoCapture vc("../../sample_image/test4.mov");
+	cv::VideoCapture vc(test4);
 
 	vc >> frame;
 
@@ -69,11 +78,12 @@ int main() {
 	//도레미파솔의 sens 값을 하드코딩 해보자
 	sihyun(keys, vc,preNote);
 	makeNote(preNote, output_note);
-	/*
+	std::cout << "===============================================" << std::endl;
 	for (int i = 0; i < preNote.size(); i++) {
 		std::cout << "[" << preNote[i].first << ", " << preNote[i].second << "]" << std::endl;
 	}
-	*/
+	
+	std::cout << "===============================================" << std::endl;
 	for (int i = 0; i < output_note.size(); i++) {
 		std::cout << "[" << output_note[i].first << ", " << output_note[i].second << "]" << std::endl;
 	}
