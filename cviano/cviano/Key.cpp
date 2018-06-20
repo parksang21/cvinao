@@ -73,28 +73,11 @@ void kb::Key::setORoi(cv::Mat source, cv::Rect rect_roi)
 	oroi = source(rect_roi);
 }
 
-cv::Mat kb::Key::getORoi()
-{
-	return oroi;
-}
+cv::Mat kb::Key::getORoi(){	return oroi;}
 
-void kb::Key::setRoi(cv::Mat source)
-{
-	cvtColor(oroi.clone(), roi, CV_BGR2GRAY);
-	roi -= 255;
-	cv::Mat temp = source(rect);
-	for(int i =0; i < roi.rows; i++)
-		for (int j = 0; j < roi.cols; j++)
-		{
-			uchar& pt = *mask.ptr<uchar>(i, j);
-			if (pt == 255) *roi.ptr<uchar>(i, j) = *temp.ptr<uchar>(i,j);
-		}
-}
+void kb::Key::setRoi(cv::Mat source){ roi = source(rect) & mask;}
 
-cv::Mat kb::Key::getRoi() 
-{
-	return roi;
-}
+cv::Mat kb::Key::getRoi() {	return roi;}
 
 void kb::Key::setMask()
 {
@@ -109,8 +92,13 @@ void kb::Key::setMask()
 	adjust_conts.push_back(adjust_cont);
 	cv::drawContours(mask, adjust_conts, -1, cv::Scalar(255), CV_FILLED);
 	cv::drawContours(mask, adjust_conts, -1, cv::Scalar(0), 3);
-}
+	cv::Mat test_mask(mask.size(), CV_8UC1, cv::Scalar(0));
+	
+	cv::drawContours(test_mask, adjust_conts, -1, cv::Scalar(255), CV_FILLED);
+	cv::drawContours(test_mask, adjust_conts, -1, cv::Scalar(0), 20);
+	mask = mask - test_mask;
 
+}
 
 cv::Mat kb::Key::getMask(){	return mask; }
 
