@@ -9,7 +9,7 @@
 
 namespace kb{
 
-
+	
 	enum class NOTE
 	{
 		Cn1=0, CSn1, Dn1, DSn1, En1, Fn1, FSn1, Gn1, GSn1, An1, ASn1, Bn1, 
@@ -22,6 +22,7 @@ namespace kb{
 		C6, CS6, D6, DS6, E6, F6, FS6, G6, GS6, A6, AS6, B6,
 		C7, CS7, D7, DS7, E7, F7, FS7, G7, GS7, A7, AS7, B7
 	};
+	
 
 	class Key
 	{
@@ -64,3 +65,4 @@ namespace kb{
 void setWhiteKeyVector(cv::Mat& src, cv::Mat& dst, std::vector<kb::Key>& keys, cv::Rect rect);
 void sihyun(std::vector<kb::Key>, cv::VideoCapture,std::vector<std::pair<int,int>>&);
 void testforRoiMask(cv::Mat source, std::vector<kb::Key>& keys);
+void jinsoo(std::vector<std::pair<int, int>>& preNote);

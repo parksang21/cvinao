@@ -2,6 +2,7 @@
 #include "custom.h"
 #include "Key.h"
 
+
 int main() {
 	// 커밋 전에는 항상 메인 주석처리 하자!
 
@@ -48,5 +49,7 @@ int main() {
 	
 	//도레미파솔의 sens 값을 하드코딩 해보자
 	sihyun(keys, vc,preNote);
+
+	//jinsoo(preNote);
 	return 0;
 }

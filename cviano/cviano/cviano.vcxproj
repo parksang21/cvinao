@@ -30,6 +30,7 @@
     <ClCompile Include="MidiFile.cpp" />
     <ClCompile Include="MidiMessage.cpp" />
     <ClCompile Include="Options.cpp" />
+    <ClCompile Include="transcriptNote.cpp" />
     <ClCompile Include="video_capture.cpp" />
   </ItemGroup>
   <ItemGroup>
