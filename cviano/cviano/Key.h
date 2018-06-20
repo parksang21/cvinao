@@ -80,8 +80,10 @@ namespace kb{
 	
 void setWhiteKeyVector(cv::Mat& src, cv::Mat& dst, std::vector<kb::Key>& keys, cv::Rect rect);
 void sihyun(std::vector<kb::Key>, cv::VideoCapture,std::vector<std::pair<int,int>>&);
-void jinsoo(std::vector<std::pair<int, int>>& preNote);
-
+void makeMusicSheet(std::vector<std::pair<int, float>>& notePairVec);
+void detectKeyboard(cv::Mat& sorce, cv::Mat& destnation, cv::Rect& rect);
+void distortionRotation(cv::Mat& sorce, cv::Mat& dst, cv::Rect& rect);
+void draw_houghLines(Mat image, Mat& dst, vector<Vec2f> lines, int nline, vector<Point2d>& linePts);
 
 #endif // !KEYBOARD
 

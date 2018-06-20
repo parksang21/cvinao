@@ -37,7 +37,6 @@
     <ClInclude Include="Binasc.h" />
     <ClInclude Include="custom.h" />
     <ClInclude Include="Key.h" />
-    <ClInclude Include="LaplacianZC.h" />
     <ClInclude Include="MidiEvent.h" />
     <ClInclude Include="MidiEventList.h" />
     <ClInclude Include="MidiFile.h" />

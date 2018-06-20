@@ -1,4 +1,5 @@
 #include "custom.h"
+#include "key.h"
 #include <vector>
 #define PrintIVector(c, vector) {cout << endl << c << endl; for(double  i : vector) cout << i << endl;}
 using namespace std;
@@ -94,8 +95,7 @@ void detectKeyboard(Mat& sorce, Mat& destnation, Rect& rect) {
 
 }
 void draw_houghLines(Mat image, Mat& dst, vector<Vec2f> lines, int nline, vector<Point2d>& linePts)
-{
-	
+{	
 	
 	cvtColor(image, dst, CV_GRAY2BGR);
 	for (size_t i = 0; i < min((int)lines.size(), nline); i++) {
@@ -108,46 +108,7 @@ void draw_houghLines(Mat image, Mat& dst, vector<Vec2f> lines, int nline, vector
 		linePts.push_back(pt - delta);
 		
 		line(dst, pt + delta, pt - delta, Scalar(0, 255, 0), 1, LINE_AA);		
-	}
-
-	
-}
-
-void detectKeyboard2(Mat& source){
-	Mat image, canny, dst1;
-	image = source;
-	imshow("컬러변환전", image);
-	cvtColor(image, image, CV_BGR2GRAY);
-	double rho = 1, theta = CV_PI/180;
-	
-	CV_Assert(image.data);
-
-
-
-	GaussianBlur(image, canny, Size(7,7), 2, 2);
-	Canny(canny, canny, 125, 350,3);
-
-
-	vector<Vec2f> lines;
-	vector<Point2d> linePts;
-	HoughLines(canny, lines, rho, theta, 50);
-
-
-	
-	cvtColor(image, image, CV_GRAY2BGR);
-
-	draw_houghLines(canny, image, lines, 2, linePts);
-	
-	
-
-
-	//namedWindow("hii",WINDOW_NORMAL);
-	//resizeWindow("hii", image.size());
-	imshow("hii", image);
-
-	waitKey(0);
-
-
+	}	
 }
 
 void distortionRotation(Mat& sorce, Mat& destnation, Rect& rect) {
@@ -206,7 +167,7 @@ void distortionRotation(Mat& sorce, Mat& destnation, Rect& rect) {
 		cout << pts2[i] << endl;
 	}
 
-	//Mat dst(roi.size(), CV_8UC1);
+	
 	Mat dst;
 
 	
