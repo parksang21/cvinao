@@ -9,7 +9,7 @@
 using namespace std;
 using namespace smf;
 
-void jinsoo(std::vector<std::pair<int, int>>& preNote) {
+void jinsoo(std::vector<std::pair<int, float>>& preNote) {
 
 	
 	MidiFile midifile;
@@ -29,34 +29,41 @@ void jinsoo(std::vector<std::pair<int, int>>& preNote) {
 	midifile.addNoteOn(track, starttick, channel, key, velocity(mt));
 	midifile.addNoteOff(track, endtick, channel, key);
 	}*/
-	
+	/*
 	for (int i = 1; i < preNote.size(); i++) {
-		preNote[i].second -= preNote[0].second;
+		preNote[i].second = preNote[i].second - preNote[0].second+1;
 	}
-	preNote[0].second -= preNote[0].second;
-
-	int temp = 0;
+	preNote[0].second = preNote[0].second- preNote[0].second+1;
 	
+	int tempHead = 0;
+	int tempTail = 0;
+
 	for (int i = 0; i < preNote.size(); i++) {
+		if (preNote[i + 1].second - preNote[i].second < 2) {
 
-		if (preNote[i].second) {
-			
 			midifile.addNoteOn(0, preNote[i].second*tpq, 0, preNote[i].first, 100);
-			temp = i;
-			continue;
+			while (preNote[i + 1].second - preNote[i].second <2 ) {
+				i++;
+			}
+			
 		}
-		
 		if (preNote[i + 1].second - preNote[i].second > 1) {
-			midifile.addNoteOff(0, (preNote[i + 1].second - preNote[i].second)*tpq, 0, preNote[i].first);
+		
+			midifile.addNoteOff(0, preNote[i].second*tpq, 0, preNote[i].first);
 		}
-
+	}*/
+	int timeSec = 0;
+	for (int i = 0; i < preNote.size(); i++) {
+		midifile.addNoteOn(0, timeSec*tpq, 0, preNote[i].first, 100);		
+		timeSec += preNote[i].second;
+		midifile.addNoteOff(0, timeSec*tpq, 0, preNote[i].first);
 	}
-
+	
 
 	midifile.sortTracks();  // Need to sort tracks since added events are
 							// appended to track in random tick order.
 
-	cout << "¹¹³Ä : " << preNote[0].second << endl;
+
 	//cout << midifile;
 	string filename = "test.mid";
 
