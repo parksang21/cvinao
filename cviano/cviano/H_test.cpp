@@ -36,7 +36,7 @@ void sihyun(std::vector<kb::Key> keys,	cv::VideoCapture vc, std::vector<std::pai
 		threshold(diffImg, diffImg, nThreshold, 255, CV_THRESH_BINARY);
 		Mat backBoard(bkgImg.size(), bkgImg.depth(), Scalar(0));
 		removeHand(bkgImg, diffImg, backBoard, ycrvb1);
-		cv::imshow("back", backBoard);
+		//cv::imshow("back", backBoard);
 
 		absdiff(grayImg1, grayImg2, diffImg);
 	
@@ -63,18 +63,35 @@ void sihyun(std::vector<kb::Key> keys,	cv::VideoCapture vc, std::vector<std::pai
 
 		}
 
-
+		
 		//건반의 타건 여부를 체크하는 함수를 건반 인스턴스의 갯수만큼 호출한다.
 		for (int i = 0; i < keys.size(); i++) 
-		{ 
+		{
 			if (keys[i].detectPress(backBoard))
 			{
 				preNote.push_back(make_pair(keys[i].getNote(), NoFrame));
-				cv::rectangle(diffImg, keys[i].getRect(), cv::Scalar(255, 255, 255), 3);
+				cv::rectangle(backBoard, keys[i].getRect(), cv::Scalar(255, 255, 255), 3);
 			}
 			imshow("roi" + std::to_string(i), keys[i].getRoi());
 		}
-
+		
+		/*
+		for (int i = 0; i < keys.size(); i++)
+		{
+			keys[i].setRoi(backBoard);
+			//keys[i].detectPress(backBoard);
+			unsigned int RR = keys[i].getRoi().rows;
+			unsigned int CC = keys[i].getRoi().cols;
+			for (unsigned int i = 0; i < RR; i++) {
+				for (unsigned int j = 0; j < CC; j++) {
+					if (*(keys[i].getRoi()).ptr<uchar>(i, j) == 255) {
+						preNote.push_back(make_pair(keys[i].getNote(), NoFrame));
+					}
+				}
+				imshow("roi" + std::to_string(i), keys[i].getRoi());
+			}
+		}
+		*/
 		//imshow("video", diffImg);
 		
 		/*
@@ -95,7 +112,7 @@ void sihyun(std::vector<kb::Key> keys,	cv::VideoCapture vc, std::vector<std::pai
 		imshow("hand", backBoard);
 		*/
 
-		char chKey = cvWaitKey(10);
+		char chKey = cvWaitKey(1);
 		if (chKey == 27) {
 			break;
 		}
