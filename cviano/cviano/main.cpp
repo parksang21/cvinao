@@ -74,7 +74,7 @@ int main() {
 	std::string test5 = "../../sample_image/test5.mov";
 	std::string test6 = "../../sample_image/test6.mov";
 	std::string test7 = "../../sample_image/test7.mov";
-	cv::VideoCapture vc(test4);
+	cv::VideoCapture vc(test7);
 
 	vc >> frame;
 
@@ -85,11 +85,11 @@ int main() {
 
 
 	// to test keyboard detection
-	/*
+	
 	imshow("SDAf", frame);
 	imshow("vv", keyborad);
 	cv::waitKey(0);
-	*/
+	
 
 
 	//detectKeyboard2(frame);
