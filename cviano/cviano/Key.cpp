@@ -42,6 +42,7 @@ bool kb::Key::detectPress(cv::Mat diffVideo) {
 	return false;
 }
 
+
 cv::Rect kb::Key::getRect() 
 {
 	return rect;
@@ -79,15 +80,7 @@ cv::Mat kb::Key::getORoi()
 
 void kb::Key::setRoi(cv::Mat source)
 {
-	cvtColor(oroi.clone(), roi, CV_BGR2GRAY);
-	roi -= 255;
-	cv::Mat temp = source(rect);
-	for(int i =0; i < roi.rows; i++)
-		for (int j = 0; j < roi.cols; j++)
-		{
-			uchar& pt = *mask.ptr<uchar>(i, j);
-			if (pt == 255) *roi.ptr<uchar>(i, j) = *temp.ptr<uchar>(i,j);
-		}
+	roi = source(rect) & mask;
 }
 
 cv::Mat kb::Key::getRoi() 
@@ -108,6 +101,12 @@ void kb::Key::setMask()
 	adjust_conts.push_back(adjust_cont);
 	cv::drawContours(mask, adjust_conts, -1, cv::Scalar(255), CV_FILLED);
 	cv::drawContours(mask, adjust_conts, -1, cv::Scalar(0), 3);
+	cv::Mat test_mask(mask.size(), CV_8UC1, cv::Scalar(0));
+	
+	cv::drawContours(test_mask, adjust_conts, -1, cv::Scalar(255), CV_FILLED);
+	cv::drawContours(test_mask, adjust_conts, -1, cv::Scalar(0), 20);
+	mask = mask - test_mask;
+
 }
 
 
