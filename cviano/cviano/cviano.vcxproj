@@ -21,7 +21,6 @@
   <ItemGroup>
     <ClCompile Include="Binasc.cpp" />
     <ClCompile Include="custom.cpp" />
-    <ClCompile Include="H_test.cpp" />
     <ClCompile Include="Key.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MidiEvent.cpp" />
