@@ -30,10 +30,20 @@ void jinsoo(std::vector<std::pair<int, int>>& preNote) {
 	midifile.addNoteOff(track, endtick, channel, key);
 	}*/
 	
+	for (int i = 1; i < preNote.size(); i++) {
+		preNote[i].second -= preNote[0].second;
+	}
+	preNote[0].second -= preNote[0].second;
+
+	int temp = 0;
+	
 	for (int i = 0; i < preNote.size(); i++) {
 
-		if (preNote[i + 1].second - preNote[i].second <= 1) {
+		if (preNote[i].second) {
+			
 			midifile.addNoteOn(0, preNote[i].second*tpq, 0, preNote[i].first, 100);
+			temp = i;
+			continue;
 		}
 		
 		if (preNote[i + 1].second - preNote[i].second > 1) {
@@ -46,7 +56,7 @@ void jinsoo(std::vector<std::pair<int, int>>& preNote) {
 	midifile.sortTracks();  // Need to sort tracks since added events are
 							// appended to track in random tick order.
 
-	cout << "¹¹³Ä" << preNote[0].first << endl;
+	cout << "¹¹³Ä : " << preNote[0].second << endl;
 	//cout << midifile;
 	string filename = "test.mid";
 
