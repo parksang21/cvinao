@@ -25,36 +25,23 @@ kb::Key::Key(cv::Mat& image, std::vector<cv::Point>& contour) {
 kb::Key::~Key() {}
 
 bool kb::Key::detectPress(cv::Mat diffVideo) {
-	unsigned int hitCount = 0; // how many pixels change
-	unsigned int criticalPoint = 0; //if hitCount is bigger than this value, we assume that key is pressed
-
-	criticalPoint = (roi.rows - 70) * (roi.cols-20) / 50;
-	/*
-	std::cout << "W: " << KeyWidth << std::endl;
-	std::cout << "H: " << KeyHeight << std::endl;
-	std::cout << "C: " << criticalPoint << std::endl;
-	*/
-
-	setRoi(diffVideo);
 	//imshow("tesasdfasdf", mask);
 	//imshow("asdfasdf", roi);
 	//cv::waitKey(0);
-	for (unsigned int i = 0; i < roi.rows; i++) {
-		for (unsigned int j = 10; j <roi.cols; j++) {
-			if (*roi.ptr<uchar>(j, i) == 255) { 
-				hitCount++; 
-				//std::cout<<"[" << hitCount<<", "<<note << "]"<<std::endl; 
+	unsigned int RR= this->getRoi().rows;
+	unsigned int CC = this->getRoi().cols;
+	this->setRoi(diffVideo);
+	//imshow("getRoi", this->getRoi());
+	for (unsigned int i = 0; i < RR; i++) {
+		for (unsigned int j = 0; j <CC; j++) {
+			if (*roi.ptr<uchar>(i, j) ==255) {
+				return true;
 			}
-			
 		}
 	}
-
-	if (hitCount >= 1) {
-		return true;
-	}
-
 	return false;
 }
+
 
 cv::Rect kb::Key::getRect() 
 {
@@ -280,12 +267,12 @@ void setWhiteKeyVector(cv::Mat& source, cv::Mat& roi, std::vector<kb::Key>& keys
 
 
 	// to show cont
-	/*
+	
 	cv::Mat cont(source);
 
 	cv::drawContours(source, contours, -1, cv::Scalar(255, 255, 0), 3);
 	kb::drawKeys(source, keys);
 	imshow("cont", source);
 	cv::waitKey();
-	*/
+	
 }

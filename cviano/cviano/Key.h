@@ -31,7 +31,6 @@ namespace kb{
 		cv::Rect rect;	// ROI 영역을 만들기 위한 rect 객체
 		cv::Mat oroi, roi, mask;
 		std::vector<cv::Point> contour;
-		int sens = 1;
 	public:
 		bool detectPress(cv::Mat diffVideo);
 		cv::Rect getRect();
