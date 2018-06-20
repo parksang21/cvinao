@@ -10,10 +10,10 @@ using namespace cv;
 void detectKeyboard(Mat& sorce, Mat& destnation, Rect& rect) {
 
 	int LowH = 0;      
-	int HighH = 170;
+	int HighH = 120;
 
 	int LowS = 0;
-	int HighS = 100;  //4,5,6에 대해서 150
+	int HighS = 150;  //4,5,6에 대해서 150
 
 	int LowV = 120;     // 4,5,6에 대해서 150  7에 대해서 80
 	int HighV = 240;      //4,5,6에 대해서 255 
@@ -82,9 +82,11 @@ void detectKeyboard(Mat& sorce, Mat& destnation, Rect& rect) {
 	rect = roiRect;
 	destnation = realRoi.clone();
 
-	//imshow("bin", img_binary);
-	//imshow("ds", destnation);
-
+	/*
+	imshow("bin", img_binary);
+	imshow("ds", destnation);
+	waitKey(0);
+	*/
 
 }
 void draw_houghLines(Mat image, Mat& dst, vector<Vec2f> lines, int nline, vector<Point2d>& linePts)
