@@ -70,7 +70,6 @@ void sihyun(std::vector<kb::Key> keys,	cv::VideoCapture vc, std::vector<std::pai
 			if (keys[i].detectPress(backBoard))
 			{
 				preNote.push_back(make_pair(keys[i].getNote(), NoFrame));
-				cv::rectangle(backBoard, keys[i].getRect(), cv::Scalar(255, 255, 255), 3);
 			}
 			imshow("roi" + std::to_string(i), keys[i].getRoi());
 		}

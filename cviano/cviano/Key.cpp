@@ -73,20 +73,11 @@ void kb::Key::setORoi(cv::Mat source, cv::Rect rect_roi)
 	oroi = source(rect_roi);
 }
 
-cv::Mat kb::Key::getORoi()
-{
-	return oroi;
-}
+cv::Mat kb::Key::getORoi(){	return oroi;}
 
-void kb::Key::setRoi(cv::Mat source)
-{
-	roi = source(rect) & mask;
-}
+void kb::Key::setRoi(cv::Mat source){ roi = source(rect) & mask;}
 
-cv::Mat kb::Key::getRoi() 
-{
-	return roi;
-}
+cv::Mat kb::Key::getRoi() {	return roi;}
 
 void kb::Key::setMask()
 {
@@ -108,7 +99,6 @@ void kb::Key::setMask()
 	mask = mask - test_mask;
 
 }
-
 
 cv::Mat kb::Key::getMask(){	return mask; }
 
