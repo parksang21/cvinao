@@ -30,15 +30,6 @@
     <ClCompile Include="main.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="H_test.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="K_test.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="video_capture.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="Binasc.cpp">
       <Filter>소스 파일\midi</Filter>
     </ClCompile>
@@ -57,7 +48,7 @@
     <ClCompile Include="Options.cpp">
       <Filter>소스 파일\midi</Filter>
     </ClCompile>
-    <ClCompile Include="transcriptNote.cpp">
+    <ClCompile Include="H_test.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>

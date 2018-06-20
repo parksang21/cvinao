@@ -2,55 +2,6 @@
 #include "custom.h"
 #include "Key.h"
 
-void makeNote(std::vector<std::pair<int, int>>& preNote, std::vector<std::pair<int, float>>& output_note) {
-
-	std::pair<int, int> start(0, 0), end(0, 0);
-	for (std::vector<std::pair<int,int>>::iterator iter = preNote.begin(); iter < preNote.end(); iter++)
-	{
-		if (iter == preNote.begin())
-		{
-			start = *iter;
-			std::cout << "start : " << start.first << "," << start.second << std::endl;
-			continue;
-		}
-
-		if (iter->first != start.first)
-		{
-			end = *(iter-1);
-			std::cout << "end : " << start.first << "," << start.second << std::endl;
-			if (start == end)
-			{
-				iter = preNote.erase(--iter);
-			}
-			start = *iter;
-		}
-	}
-
-	start = std::make_pair(0, 0);
-	end = std::make_pair(0, 0);
-	for (std::vector<std::pair<int, int>>::iterator iter = preNote.begin(); iter < preNote.end(); iter++)
-	{
-		if (iter == preNote.begin())
-		{
-			start = *iter;
-			continue;
-		}
-
-		if (iter->first != (iter - 1)->first || iter == preNote.end() - 1)
-		{
-			end = *(iter - 1);
-			output_note.push_back(std::make_pair(start.first, 0.5 * (end.second - start.second) / 5));
-			start = *iter;
-		}
-		else if (iter->second - (iter-1)->second > 3)
-		{
-				end = *(iter - 1);
-				output_note.push_back(std::make_pair(start.first, 0.5 * (end.second - start.second) / 5));
-				start = *iter;
-		}
-	}
-}
-
 int main() {
 	// 커밋 전에는 항상 메인 주석처리 하자!
 

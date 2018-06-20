@@ -36,6 +36,4 @@ void makeMusicSheet(std::vector<std::pair<int, float>>& notePairVec) {
 	string filename = "test.mid";
 
 	midifile.write(filename);
-
-	
 }

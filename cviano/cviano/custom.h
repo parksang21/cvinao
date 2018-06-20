@@ -26,9 +26,4 @@ namespace cust
 	double getAverageContourAreas(std::vector<std::vector<cv::Point>> conts, cv::Mat src);
 }
 
-
-
-
-
-
 #endif
