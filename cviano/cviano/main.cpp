@@ -90,6 +90,7 @@ int main() {
 	//도레미파솔의 sens 값을 하드코딩 해보자
 	sihyun(keys, vc,preNote);
 	makeNote(preNote, output_note);
+	makeMusicSheet(output_note);
 
 	/*
 	std::cout << "====================pre===========================" << std::endl;

@@ -9,7 +9,7 @@
 using namespace std;
 using namespace smf;
 
-void makeMusicSheet(std::vector<std::pair<int, float>>& preNote) {
+void makeMusicSheet(std::vector<std::pair<int, float>>& notePairVec) {
 
 	
 	MidiFile midifile;
@@ -23,10 +23,10 @@ void makeMusicSheet(std::vector<std::pair<int, float>>& preNote) {
 
 	
 	float timeSec = 0;
-	for (int i = 0; i < preNote.size(); i++) {
-		midifile.addNoteOn(0, timeSec*tpq, 0, preNote[i].first, 100);		
-		timeSec += preNote[i].second;
-		midifile.addNoteOff(0, timeSec*tpq, 0, preNote[i].first);
+	for (int i = 0; i < notePairVec.size(); i++) {
+		midifile.addNoteOn(0, timeSec*tpq, 0, notePairVec[i].first, 100);		
+		timeSec += notePairVec[i].second;
+		midifile.addNoteOff(0, timeSec*tpq, 0, notePairVec[i].first);
 	}
 	
 

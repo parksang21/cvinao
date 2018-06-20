@@ -95,8 +95,7 @@ void detectKeyboard(Mat& sorce, Mat& destnation, Rect& rect) {
 
 }
 void draw_houghLines(Mat image, Mat& dst, vector<Vec2f> lines, int nline, vector<Point2d>& linePts)
-{
-	
+{	
 	
 	cvtColor(image, dst, CV_GRAY2BGR);
 	for (size_t i = 0; i < min((int)lines.size(), nline); i++) {
@@ -109,9 +108,7 @@ void draw_houghLines(Mat image, Mat& dst, vector<Vec2f> lines, int nline, vector
 		linePts.push_back(pt - delta);
 		
 		line(dst, pt + delta, pt - delta, Scalar(0, 255, 0), 1, LINE_AA);		
-	}
-
-	
+	}	
 }
 
 void distortionRotation(Mat& sorce, Mat& destnation, Rect& rect) {
