@@ -180,10 +180,13 @@ void kb::setMusicalNote(std::vector<kb::Key>& keys)
 	int start = 0;
 
 	if (key_num == 22)
-		start = (int) kb::NOTE::E4;
+		start = (int) kb::NOTE::F2;
 
 	for (std::vector<kb::Key>::iterator iter = keys.begin(); iter < keys.end(); iter++) 
 	{
+		if (start % 12 == 6 || start % 12 == 8 || start % 12 == 10 || start % 12 == 1 || start % 12 == 3)
+			start++;
+
 		iter->setNote(start);
 		start++;
 	}
@@ -192,6 +195,7 @@ void kb::setMusicalNote(std::vector<kb::Key>& keys)
 
 void kb::drawKeys(cv::Mat& image, std::vector<kb::Key> keys)
 {
+	
 	for (int i = 0; i < keys.size(); i++)
 	{
 		cv::rectangle(image, keys[i].getRect(), cv::Scalar(255, 0, 0), 2);

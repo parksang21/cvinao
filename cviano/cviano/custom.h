@@ -1,8 +1,8 @@
 #pragma once
 
-#ifndef CL
+#ifndef _CUSTOM_H_
 
-#define CL
+#define _CUSTOM_H_
 
 #include <iostream>
 #include <opencv2\opencv.hpp>
@@ -31,4 +31,6 @@ namespace cust
 void detectKeyboard(cv::Mat& sorce, cv::Mat& destnation, cv::Rect& rect);
 void detectKeyboard2(cv::Mat& source);
 void distortionRotation(cv::Mat& sorce, cv::Mat& dst, cv::Rect& rect);
+
+
 #endif
