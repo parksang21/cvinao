@@ -73,7 +73,7 @@ void detectKeyboard(Mat& sorce, Mat& destnation, Rect& rect) {
 	top = top + height * 3 / 100; 
 
 
-	//rectangle(img_input, Point(left, top), Point(left + width, top + height), Scalar(0, 0, 255), 3);
+	rectangle(img_input, Point(left, top), Point(left + width, top + height), Scalar(0, 0, 255), 3);
 	//rectangle(img_binary, Point(left, top), Point(left + width, top + height), Scalar(255, 255, 255), 1);
 
 
@@ -82,9 +82,13 @@ void detectKeyboard(Mat& sorce, Mat& destnation, Rect& rect) {
 	rect = roiRect;
 	destnation = realRoi.clone();
 
+	
+
+	
 	/*
-	imshow("bin", img_binary);
-	imshow("ds", destnation);
+	imshow("Detected Keboard area", img_input);
+	imshow("Binary image", img_binary);
+	imshow("Detected Keyboard image", destnation);
 	waitKey(0);
 	*/
 
