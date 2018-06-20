@@ -68,9 +68,6 @@
     <ClInclude Include="Key.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="LaplacianZC.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="Binasc.h">
       <Filter>헤더 파일\midi</Filter>
     </ClInclude>
