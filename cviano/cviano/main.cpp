@@ -2,42 +2,61 @@
 #include "custom.h"
 #include "Key.h"
 
+#include <queue>
+
+int sumPair(std::pair<int, int> pairs[])
+{
+	int sum = 0;
+	for (int i = 0; i < 4; i++) sum += pairs[i].first;
+	return sum;
+}
+
 void makeNote(std::vector<std::pair<int, int>>& preNote, std::vector<std::pair<int, float>>& output_note) {
-	std::vector<std::pair<int, int>> count;
-	size_t flag = 0;
 
-	for (int i = 0; i < preNote.size(); i++) {
-		for (int j = 0; j < count.size(); j++) {
-			if (preNote[i].first == count[j].first) {
-				count[j].second += 1;
-				flag = 1;
-			}
-			if ((preNote[i + 2].second - preNote[i + 1].second) > 2 && count[j].second >= 5) {
-				output_note.push_back(std::make_pair(preNote[i].first, 0.5*(count[j].second / 5)));
-				std::vector<std::pair<int, int>> count;
-			}
+	std::pair<int, int> start(0, 0), end(0, 0);
+	for (std::vector<std::pair<int,int>>::iterator iter = preNote.begin(); iter < preNote.end(); iter++)
+	{
+		if (iter == preNote.begin())
+		{
+			start = *iter;
+			std::cout << "start : " << start.first << "," << start.second << std::endl;
+			continue;
 		}
 
-		if (flag == 0) {
-			for (int l = 0; l < count.size(); l++) {
-				if (count[l].second >= 5) {
-					output_note.push_back(std::make_pair(count[l].first, 0.5*(count[l].second / 5)));
-					std::vector<std::pair<int, int>> count;
-				}
-
+		if (iter->first != start.first)
+		{
+			end = *(iter-1);
+			std::cout << "end : " << start.first << "," << start.second << std::endl;
+			if (start == end)
+			{
+				iter = preNote.erase(--iter);
 			}
-			count.push_back(std::make_pair(preNote[i].first, 1));
+			start = *iter;
 		}
-		flag = 0;
-		if ((i == preNote.size() - 1)) {
-			for (int k = 0; k < count.size(); k++) {
-				if (count[k].second >= 5) {
-					output_note.push_back(std::make_pair(count[k].first, 0.5*(count[k].second / 5)));
-					std::vector<std::pair<int, int>> count;
-				}
-			}
+	}
+
+	start = std::make_pair(0, 0);
+	end = std::make_pair(0, 0);
+	for (std::vector<std::pair<int, int>>::iterator iter = preNote.begin(); iter < preNote.end(); iter++)
+	{
+		if (iter == preNote.begin())
+		{
+			start = *iter;
+			continue;
 		}
 
+		if (iter->first != (iter - 1)->first || iter == preNote.end() - 1)
+		{
+			end = *(iter - 1);
+			output_note.push_back(std::make_pair(start.first, 0.5 * (end.second - start.second) / 5));
+			start = *iter;
+		}
+		else if (iter->second - (iter-1)->second > 3)
+		{
+				end = *(iter - 1);
+				output_note.push_back(std::make_pair(start.first, 0.5 * (end.second - start.second) / 5));
+				start = *iter;
+		}
 	}
 }
 

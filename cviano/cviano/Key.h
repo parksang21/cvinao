@@ -1,6 +1,5 @@
 #pragma once
 
-
 #ifndef _KEY_H_
 #define _KEY_H_
 
@@ -81,7 +80,6 @@ namespace kb{
 	
 void setWhiteKeyVector(cv::Mat& src, cv::Mat& dst, std::vector<kb::Key>& keys, cv::Rect rect);
 void sihyun(std::vector<kb::Key>, cv::VideoCapture,std::vector<std::pair<int,int>>&);
-void testforRoiMask(cv::Mat source, std::vector<kb::Key>& keys);
 void jinsoo(std::vector<std::pair<int, int>>& preNote);
 
 

@@ -1,5 +1,7 @@
 #include "Key.h"
 
+#include "MidiFile.h"
+
 kb::Key::Key() {};
 
 kb::Key::Key(cv::Rect& r) {
@@ -230,7 +232,6 @@ void setWhiteKeyVector(cv::Mat& source, cv::Mat& roi, std::vector<kb::Key>& keys
 	cv::Mat morph;
 	morphologyEx(canny, morph, CV_MOP_CLOSE, kernel);
 
-
 	// display :: morphed image
 	// imshow("morph", morph);
 
@@ -252,21 +253,20 @@ void setWhiteKeyVector(cv::Mat& source, cv::Mat& roi, std::vector<kb::Key>& keys
 	for (int i = 0; i < keys.size(); i++)
 	{
 		keys[i].setORoi(source);
-		//cv::imshow(std::to_string(i), keys[i].getRoi());
+		// cv::imshow(std::to_string(i), keys[i].getORoi());
 		keys[i].setMask();
-		//cv::imshow("mask " + std::to_string(i), keys[i].getMask());
+		// cv::imshow("mask " + std::to_string(i), keys[i].getMask());
 	}
 
 
 
 
+	/*
 	// to show cont
-	
 	cv::Mat cont(source);
-
 	cv::drawContours(source, contours, -1, cv::Scalar(255, 255, 0), 3);
 	kb::drawKeys(source, keys);
 	imshow("cont", source);
 	//cv::waitKey();
-	
+	*/
 }
