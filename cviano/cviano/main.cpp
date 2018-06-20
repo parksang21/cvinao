@@ -2,15 +2,15 @@
 #include "custom.h"
 #include "Key.h"
 
-void makeNote(std::vector<std::pair<int, int>>& preNote, std::vector<std::pair<int, int>>& output_note) {
+void makeNote(std::vector<std::pair<int, int>>& preNote, std::vector<std::pair<int, float>>& output_note) {
 	std::vector<std::pair<int, int>> count;
 	size_t flag = 0;
 	for (int i = 0; i < preNote.size(); i++) {
-		for (int j = 0; j < output_note.size(); j++) {
+		for (int j = 0; j < count.size(); j++) {
 			if (preNote[i].first == count[j].first) {
-				count[j].second++;
+				count[j].second+=1;
 				flag = 1;
-				if ((preNote[i + 1].second - preNote[i + 2].second) / 7 >= 1) {
+				if (((preNote[i + 1].second - preNote[i + 2].second)> 7)&&count[i].second>=4) {
 					output_note.push_back(std::make_pair(preNote[i].first, 0.5*(count[j].second / 4)));
 					count.clear();
 				}
@@ -29,7 +29,8 @@ int main() {
 	cv::Mat keyborad, frame;
 	std::vector<kb::Key> keys;
 	cv::Rect keyboard_rect;
-	std::vector <std::pair<int,int>> preNote, output_note;
+	std::vector <std::pair<int,int>> preNote;
+	std::vector <std::pair<int, float>> output_note;
 
 	std::string test3 = "../../sample_image/test3.mov";
 	std::string test4 = "../../sample_image/test4.mov";
