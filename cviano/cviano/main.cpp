@@ -15,7 +15,8 @@ int main() {
 	std::string test5 = "../../sample_image/test5.mov";
 	std::string test6 = "../../sample_image/test6.mov";
 	std::string test7 = "../../sample_image/test7.mov";
-	cv::VideoCapture vc(test3);
+	std::string test33 = "../../sample_image/test3.mp4";
+	cv::VideoCapture vc(test33);
 
 	vc >> frame;
 
@@ -41,12 +42,12 @@ int main() {
 	
 	//distortionRotation(frame,keyborad,keyboard_rect);
 
-	setWhiteKeyVector(frame, keyborad, keys, keyboard_rect);
+	//setWhiteKeyVector(frame, keyborad, keys, keyboard_rect);
 
 	//cv::imshow("frame", frame);
 	//cv::waitKey();
 	
 	//도레미파솔의 sens 값을 하드코딩 해보자
-	sihyun(keys, vc,preNote);
+	//sihyun(keys, vc,preNote);
 	return 0;
 }
