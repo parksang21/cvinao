@@ -24,37 +24,14 @@ void sihyun(std::vector<kb::Key> keys,	cv::VideoCapture vc, std::vector<std::pai
 	int nThreshold = 50;
 	int NoFrame = 0;
 
-	while (1) {/*
-		if (NoFrame % 2 == 0) { 
-		vc >> frame1; 
-		if (!frame1.data) break;
-		cvtColor(frame1, grayImg1, CV_BGR2GRAY);
-		cvtColor(frame1, ycrvb1, CV_BGR2YCrCb);
-		inRange(ycrvb1, Scalar(0, 138, 79), Scalar(255, 162, 121), ycrvb1);
-		//imshow("1", grayImg1);
-		removeHand(bkgImg, diffImg, backBoard, ycrvb1);
-		absdiff(grayImg1, bkgImg, diffImg);
-		}
-		else { 
-		vc >> frame2; 	
-		if (!frame2.data) break;
-		cvtColor(frame2, grayImg2, CV_BGR2GRAY);
-		//cvtColor(frame2, ycrvb2, CV_BGR2YCrCb);
-		inRange(ycrvb2, Scalar(0, 138, 79), Scalar(255, 162, 121), ycrvb2);
-		//imshow("2", grayImg2);
-
-		removeHand(bkgImg, diffImg, backBoard, ycrvb2);
-		absdiff(grayImg2, bkgImg, diffImg);
-		}*/
-
-
+	while (1) {
+	
 		vc >> frame1;
 		if (!frame1.data) break;
 		cvtColor(frame1, grayImg1, CV_BGR2GRAY);
 		cvtColor(frame1, ycrvb1, CV_BGR2YCrCb);
 		inRange(ycrvb1, Scalar(0, 138, 79), Scalar(255, 162, 121), ycrvb1);
-		dilate(ycrvb1, ycrvb1, getStructuringElement(MORPH_ELLIPSE, Size(7, 7)), Point(-1, -1), 10);
-
+		dilate(ycrvb1, ycrvb1, getStructuringElement(MORPH_ELLIPSE, Size(5,5)), Point(-1, -1), 22);
 		absdiff(grayImg1, bkgImg, diffImg);
 		threshold(diffImg, diffImg, nThreshold, 255, CV_THRESH_BINARY);
 		Mat backBoard(bkgImg.size(), bkgImg.depth(), Scalar(0));
@@ -122,7 +99,7 @@ void sihyun(std::vector<kb::Key> keys,	cv::VideoCapture vc, std::vector<std::pai
 		if (chKey == 27) {
 			break;
 		}
-		//cout << NoFrame << endl;
+		cout << NoFrame << endl;
 		NoFrame++;
 	}
 	for (int i = 0; i < preNote.size(); i++) {
