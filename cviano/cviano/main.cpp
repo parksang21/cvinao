@@ -2,6 +2,27 @@
 #include "custom.h"
 #include "Key.h"
 
+void makeNote(std::vector<std::pair<int, int>>& preNote, std::vector<std::pair<int, int>>& output_note) {
+	std::vector<std::pair<int, int>> count;
+	size_t flag = 0;
+	for (int i = 0; i < preNote.size(); i++) {
+		for (int j = 0; j < output_note.size(); j++) {
+			if (preNote[i].first == count[j].first) {
+				count[j].second++;
+				flag = 1;
+				if ((preNote[i + 1].second - preNote[i + 2].second) / 7 >= 1) {
+					output_note.push_back(std::make_pair(preNote[i].first, 0.5*(count[j].second / 4)));
+					count.clear();
+				}
+			}
+		}
+		if (flag == 0) {
+			count.push_back(std::make_pair(preNote[i].first, 1));
+			flag = 0;
+		}
+	}
+}
+
 int main() {
 	// 커밋 전에는 항상 메인 주석처리 하자!
 
@@ -20,8 +41,6 @@ int main() {
 	vc >> frame;
 
 	cv::resize(frame, frame, cv::Size(1920, 1080));
-
-	//sihyun();
 
 	//획득한 전체영상에서 흰부분 기준으로 건반의 위치에 사각형
 	detectKeyboard(frame, keyborad, keyboard_rect);
@@ -48,5 +67,15 @@ int main() {
 	
 	//도레미파솔의 sens 값을 하드코딩 해보자
 	sihyun(keys, vc,preNote);
+	makeNote(preNote, output_note);
+	/*
+	for (int i = 0; i < preNote.size(); i++) {
+		std::cout << "[" << preNote[i].first << ", " << preNote[i].second << "]" << std::endl;
+	}
+	*/
+	for (int i = 0; i < output_note.size(); i++) {
+		std::cout << "[" << output_note[i].first << ", " << output_note[i].second << "]" << std::endl;
+	}
+	
 	return 0;
 }

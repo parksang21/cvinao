@@ -31,7 +31,7 @@ void sihyun(std::vector<kb::Key> keys,	cv::VideoCapture vc, std::vector<std::pai
 		cvtColor(frame1, grayImg1, CV_BGR2GRAY);
 		cvtColor(frame1, ycrvb1, CV_BGR2YCrCb);
 		inRange(ycrvb1, Scalar(0, 138, 79), Scalar(255, 162, 121), ycrvb1);
-		dilate(ycrvb1, ycrvb1, getStructuringElement(MORPH_ELLIPSE, Size(5,5)), Point(-1, -1), 22);
+		dilate(ycrvb1, ycrvb1, getStructuringElement(MORPH_ELLIPSE, Size(5,5)), Point(-1, -1), 20);
 		absdiff(grayImg1, bkgImg, diffImg);
 		threshold(diffImg, diffImg, nThreshold, 255, CV_THRESH_BINARY);
 		Mat backBoard(bkgImg.size(), bkgImg.depth(), Scalar(0));
@@ -110,6 +110,9 @@ void sihyun(std::vector<kb::Key> keys,	cv::VideoCapture vc, std::vector<std::pai
 		/*
 		resize(backBoard, backBoard, Size(1080, 720));
 		imshow("hand", backBoard);
+		for (int i = 0; i < preNote.size(); i++) {
+		cout << "["<<preNote[i].first <<", "<<preNote[i].second<<"]"<< endl;
+		}
 		*/
 
 		char chKey = cvWaitKey(1);
@@ -119,8 +122,6 @@ void sihyun(std::vector<kb::Key> keys,	cv::VideoCapture vc, std::vector<std::pai
 		cout << NoFrame << endl;
 		NoFrame++;
 	}
-	for (int i = 0; i < preNote.size(); i++) {
-		cout << "["<<preNote[i].first <<", "<<preNote[i].second<<"]"<< endl;
-	}
+	
 	waitKey();
 }

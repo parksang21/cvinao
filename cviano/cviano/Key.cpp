@@ -42,6 +42,7 @@ bool kb::Key::detectPress(cv::Mat diffVideo) {
 	return false;
 }
 
+
 cv::Rect kb::Key::getRect() 
 {
 	return rect;
