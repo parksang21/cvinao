@@ -1,5 +1,10 @@
-#include "Key.h"
+#include <iostream>
+#include <opencv2\opencv.hpp>
+#include <vector>
+#include <cmath>
+#include <utility>
 
+#include "Key.h"
 #include "MidiFile.h"
 
 kb::Key::Key() {};
@@ -241,7 +246,7 @@ void setWhiteKeyVector(cv::Mat& source, cv::Mat& roi, std::vector<kb::Key>& keys
 	cv::findContours(morph, contours, hierarchy, CV_RETR_LIST, CV_CHAIN_APPROX_SIMPLE, cv::Point(0, 0));
 ;
 
-	std::sort(contours.begin(), contours.end(), cust::compareContourAreas);
+	std::sort(contours.begin(), contours.end(), compareContourAreas);
 
 	kb::mapKeys(source, image, contours, keys, rect);
 
@@ -547,23 +552,25 @@ void preProcess(std::vector<kb::Key> keys, cv::VideoCapture vc, std::vector<std:
 		cv::Mat backBoard(bkgImg.size(), bkgImg.depth(), cv::Scalar(0));
 		removeHand(diffImg, backBoard, ycrvb1);
 
-		/*
-		for (int i = 0; i < keys.size(); i++)
-		{
-		cv::namedWindow("roi" + std::to_string(i));
-		cv::moveWindow("roi" + std::to_string(i), i * 100, 30);
+		if(DEBUG_MODE)
+			for (int i = 0; i < keys.size(); i++)
+			{
+			cv::namedWindow("roi" + std::to_string(i));
+			cv::moveWindow("roi" + std::to_string(i), i * 100, 30);
 
-		}
-		*/
+			}
+		
 		//건반의 타건 여부를 체크하는 함수를 건반 인스턴스의 갯수만큼 호출한다.
 		for (int i = 0; i < keys.size(); i++)
 		{
 			if (keys[i].detectPress(backBoard))
 			{
 				preNote.push_back(std::make_pair(keys[i].getNote(), NoFrame));
-				// cv::rectangle(backBoard, keys[i].getRect(), cv::Scalar(255, 255, 255), 3);
+				if (DEBUG_MODE)
+					rectangle(backBoard, keys[i].getRect(), cv::Scalar(255, 255, 255), 3);
 			}
-			// imshow("roi" + std::to_string(i), keys[i].getRoi());
+			if (DEBUG_MODE) 
+				imshow("roi" + std::to_string(i), keys[i].getRoi());
 		}
 
 		char chKey = cvWaitKey(1);
@@ -573,7 +580,12 @@ void preProcess(std::vector<kb::Key> keys, cv::VideoCapture vc, std::vector<std:
 
 		system("cls");
 		std::cout << NoFrame * 100 / totalF << "%" << std::endl;
-
 		NoFrame++;
 	}
+}
+
+bool compareContourAreas(std::vector<cv::Point> contour1, std::vector<cv::Point> contour2) {
+	double i = fabs(cv::contourArea(contour1));
+	double j = fabs(cv::contourArea(contour2));
+	return (i > j);
 }

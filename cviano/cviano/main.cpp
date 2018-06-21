@@ -1,5 +1,9 @@
 // this is main() function of the whole project
-#include "custom.h"
+
+#include <iostream>
+#include <opencv2\opencv.hpp>
+#include <vector>
+
 #include "Key.h"
 
 int main() {

@@ -20,7 +20,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Binasc.cpp" />
-    <ClCompile Include="custom.cpp" />
     <ClCompile Include="Key.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MidiEvent.cpp" />
@@ -31,7 +30,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Binasc.h" />
-    <ClInclude Include="custom.h" />
     <ClInclude Include="Key.h" />
     <ClInclude Include="MidiEvent.h" />
     <ClInclude Include="MidiEventList.h" />
@@ -102,7 +100,7 @@
     <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <LinkIncremental>false</LinkIncremental>
+    <LinkIncremental>true</LinkIncremental>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>

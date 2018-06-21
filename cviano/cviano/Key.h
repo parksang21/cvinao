@@ -3,16 +3,15 @@
 #ifndef _KEY_H_
 #define _KEY_H_
 
-#include "custom.h"
-
-
 // for key_type
 #define WHITE_KEY 0
 #define BLACK_KEY 1
 
+#define DEBUG_MODE true
 
 namespace kb{
-		
+
+
 	enum class NOTE
 	{
 		Cn1=0, CSn1, Dn1, DSn1, En1, Fn1, FSn1, Gn1, GSn1, An1, ASn1, Bn1, 
@@ -85,6 +84,9 @@ void detectKeyboard(cv::Mat& sorce, cv::Mat& destnation, cv::Rect& rect);
 void distortionRotation(cv::Mat& sorce, cv::Mat& dst, cv::Rect& rect);
 void draw_houghLines(cv::Mat image, cv::Mat& dst, std::vector<cv::Vec2f> lines, int nline, std::vector<cv::Point2d>& linePts);
 void makeNote(std::vector<std::pair<int, int>>& preNote, std::vector<std::pair<int, float>>& output_note);
+
+
+bool compareContourAreas(std::vector<cv::Point> contour1, std::vector<cv::Point> contour2);
 
 #endif // !KEYBOARD
 
