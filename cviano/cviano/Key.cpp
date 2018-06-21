@@ -7,6 +7,18 @@
 #include "Key.h"
 #include "MidiFile.h"
 
+std::string sNote[] = {
+	"Cn1", "CSn1", "Dn1", "Dsn1", "En1", "Fn1", "FSn1", "Gn1","GSn1", "An1", "ASn1", "Bn1",
+	"C0", "CS0", "D0", "DS0", "E0", "F0", "FS0", "G0", "GS0", "A0", "AS0", "B0",
+	"C1", "CS1", "D1", "DS1", "E1", "F1", "FS1", "G1", "GS1", "A1", "AS1", "B1",
+	"C2", "CS2", "D2", "DS2", "E2", "F2", "FS2", "G2", "GS2", "A2", "AS2", "B2",
+	"C3", "CS3", "D3", "DS3", "E3", "F3", "FS3", "G3", "GS3", "A3", "AS3", "B3",
+	"C4", "CS4", "D4", "DS4", "E4", "F4", "FS4", "G4", "GS4", "A4", "AS4", "B4",
+	"C5", "CS5", "D5", "DS5", "E5", "F5", "FS5", "G5", "GS5", "A5", "AS5", "B5",
+	"C6", "CS6", "D6", "DS6", "E6", "F6", "FS6", "G6", "GS6", "A6", "AS6", "B6",
+	"C7", "CS7", "D7", "DS7", "E7", "F7", "FS7", "G7", "GS7", "A7", "AS7", "B7"
+};
+
 kb::Key::Key() {};
 
 kb::Key::Key(cv::Rect& r) {
@@ -42,6 +54,13 @@ bool kb::Key::detectPress(cv::Mat diffVideo) {
 	for (unsigned int i = 0; i < RR; i++) {
 		for (unsigned int j = 0; j <CC; j++) {
 			if (*roi.ptr<uchar>(i, j) ==255) {
+				if (DEBUG_MODE)
+					cv::putText(roi,
+						cv::String(sNote[getNote()]),
+						cv::Point(20, 20),
+						2,
+						1,
+						cv::Scalar(255, 255, 255));
 				return true;
 			}
 		}
@@ -205,7 +224,7 @@ void kb::drawKeys(cv::Mat& image, std::vector<kb::Key> keys)
 	{
 		cv::rectangle(image, keys[i].getRect(), cv::Scalar(255, 0, 0), 2);
 		cv::putText(image,
-			cv::String(std::to_string(keys[i].getNote())),
+			cv::String(sNote[keys[i].getNote()]),
 			keys[i].getRect().tl() + cv::Point(0, 20),
 			2,
 			1.2,
@@ -261,15 +280,14 @@ void setWhiteKeyVector(cv::Mat& source, cv::Mat& roi, std::vector<kb::Key>& keys
 		// cv::imshow("mask " + std::to_string(i), keys[i].getMask());
 	}
 
-	// to show cont
-	/*
-	cv::Mat cont(source);
-	cv::drawContours(source, contours, -1, cv::Scalar(255, 255, 0), 3);
-	kb::drawKeys(source, keys);
-	imshow("cont", source);
-	cv::waitKey();
-	*/
-	
+	if (DEBUG_MODE)
+	{
+		cv::Mat cont(source);
+		cv::drawContours(source, contours, -1, cv::Scalar(255, 255, 0), 3);
+		kb::drawKeys(source, keys);
+		imshow("cont", source);
+		cv::waitKey();
+	}
 }
 
 void detectKeyboard(cv::Mat& sorce, cv::Mat& destnation, cv::Rect& rect) {
@@ -566,8 +584,6 @@ void preProcess(std::vector<kb::Key> keys, cv::VideoCapture vc, std::vector<std:
 			if (keys[i].detectPress(backBoard))
 			{
 				preNote.push_back(std::make_pair(keys[i].getNote(), NoFrame));
-				if (DEBUG_MODE)
-					rectangle(backBoard, keys[i].getRect(), cv::Scalar(255, 255, 255), 3);
 			}
 			if (DEBUG_MODE) 
 				imshow("roi" + std::to_string(i), keys[i].getRoi());
