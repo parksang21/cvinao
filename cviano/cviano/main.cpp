@@ -18,7 +18,9 @@ int main() {
 	
 	std::string test1 = "../../sample_image/test4.mov";
 	std::string test2 = "../../sample_image/test5.mov";
-	cv::VideoCapture vc(test1);
+	// user 함수의 경로에 저장한 파일 이름을 넣어주세요
+	std::string user = "../../sample_image/test2.mov";
+	cv::VideoCapture vc(test2);
 
 	vc >> frame;
 

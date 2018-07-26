@@ -44,27 +44,23 @@ kb::Key::Key(cv::Mat& image, std::vector<cv::Point>& contour) {
 kb::Key::~Key() {}
 
 bool kb::Key::detectPress(cv::Mat diffVideo) {
-	//imshow("tesasdfasdf", mask);
-	//imshow("asdfasdf", roi);
-	//cv::waitKey(0);
 	unsigned int RR= this->getRoi().rows;
 	unsigned int CC = this->getRoi().cols;
 	this->setRoi(diffVideo);
-	//imshow("getRoi", this->getRoi());
-	for (unsigned int i = 0; i < RR; i++) {
-		for (unsigned int j = 0; j <CC; j++) {
-			if (*roi.ptr<uchar>(i, j) ==255) {
-				if (DEBUG_MODE)
+	if (DEBUG_MODE)
+		for (unsigned int i = 0; i < RR; i++) {
+			for (unsigned int j = 0; j <CC; j++) {
+				if (*roi.ptr<uchar>(i, j) ==255) {
 					cv::putText(roi,
-						cv::String(sNote[getNote()]),
-						cv::Point(20, 20),
-						2,
-						1,
-						cv::Scalar(255, 255, 255));
-				return true;
+							cv::String(sNote[getNote()]),
+							cv::Point(20, 20),
+							2,
+							1,
+							cv::Scalar(255, 255, 255));
+					return true;
+				}
 			}
 		}
-	}
 	return false;
 }
 
@@ -428,7 +424,6 @@ void distortionRotation(cv::Mat& sorce, cv::Mat& destnation, cv::Rect& rect) {
 		}
 	}
 
-
 	//원본영상좌표 좌상,우상,좌하,우하
 	cv::Point2f pts1[4] = {
 		roiLT + cv::Point2i(rect.x,rect.y),roiRT + cv::Point2i(rect.x,rect.y),roiLB + cv::Point2i(rect.x,rect.y),roiRB + cv::Point2i(rect.x,rect.y)
@@ -450,7 +445,6 @@ void distortionRotation(cv::Mat& sorce, cv::Mat& destnation, cv::Rect& rect) {
 
 
 	cv::Mat dst;
-
 
 	cv::Mat perspect_map = getPerspectiveTransform(pts1, pts2);
 	cv::warpPerspective(roi, dst, perspect_map, roi.size(), cv::INTER_CUBIC);
